@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: "Bai";
+  src: url("assets/fonts/BaiJamjuree-Regular.ttf") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#root,
+body,
+html {
+  font-family: "Bai";
+  min-height: 100vh;
+  max-width: 100vw;
+  padding: 0 !important;
+  margin: 0;
+  color: #212529;
+}
+
+* {
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+.table-cell {
+  @apply border-r-[.5px] border-t-[.5px] border-slate-300 px-4;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #2b38d1 #e0e0e0;
+  cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAABCAIAAAANZmMAAAAHElEQVRIDbXBAQEAAAABIP6P6z21CkL4tMDIwF8J9pCgw1QFCgMYAABgAAXn8k8EAAAAAElFTkSuQmCC"),
+    auto; /* This creates a custom cursor */
+}
+
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #2b38d1 #e0e0e0;
+}
+
+.cursor-outline {
+  width: 250px;
+  height: 250px;
+  background-color: #ffffff07;
+  border: 2px solid #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
