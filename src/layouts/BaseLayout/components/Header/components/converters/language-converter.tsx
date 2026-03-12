@@ -1,5 +1,5 @@
-import { setCurrentLocaleCode } from "@mongez/localization";
 import { current } from "@mongez/react";
+import { changeLocaleCode } from "@mongez/react-router";
 import { FaAngleDown } from "react-icons/fa";
 
 import { Button } from "design-system/components/ui/button";
@@ -30,22 +30,11 @@ const locales = [
 export default function LanguageConverter() {
   const language = current("localeCode");
 
-  let isChangingLocale = false;
-
   const changeLanguage = (locale: string) => {
-    if (isChangingLocale) return;
-
     const currentLocale = current("localeCode");
     if (currentLocale === locale) return;
 
-    try {
-      isChangingLocale = true;
-      setCurrentLocaleCode(locale);
-    } catch (error) {
-      console.error("Failed to change language:", error);
-    } finally {
-      isChangingLocale = false;
-    }
+    changeLocaleCode(locale);
   };
 
   return (

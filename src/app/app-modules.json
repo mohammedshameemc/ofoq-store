@@ -51,6 +51,10 @@
     {
       "entry": ["/contact-us"],
       "name": "contact-us"
+    },
+    {
+      "entry": ["/admin"],
+      "name": "admin"
     }
   ]
 }
