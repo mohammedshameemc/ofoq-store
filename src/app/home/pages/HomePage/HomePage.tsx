@@ -1,10 +1,10 @@
 import { trans } from "@mongez/localization";
 import { preload, setPreloadConfiguration } from "@mongez/react-utils";
-import { LuLoader2 } from "react-icons/lu";
 
 import Helmet from "@mongez/react-helmet";
 import CategoriesRow from "app/home/components/CategoriesRow";
 import DealsRow from "app/home/components/DealsRow";
+import HomePageSkeleton from "app/home/components/HomePageSkeleton";
 import MiddleBannerRow from "app/home/components/MiddleBannerRow";
 import RecommendedRow from "app/home/components/RecommendedRow";
 import SliderRow from "app/home/components/SliderRow";
@@ -21,11 +21,7 @@ interface HomePageProps {
 setPreloadConfiguration({
   loadingErrorComponent: ({ isLoading, error }) => {
     if (isLoading) {
-      return (
-        <div className="w-full min-h-full flex items-center justify-center pt-16">
-          <LuLoader2 className="w-10 h-10 animate-spin text-blue" />
-        </div>
-      );
+      return <HomePageSkeleton />;
     } else if (error) {
       return (
         <div className="w-full h-full flex items-center justify-center pt-16">

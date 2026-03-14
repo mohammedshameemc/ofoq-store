@@ -14,9 +14,7 @@ import { Separator } from "design-system/components/ui/separator";
 import { Sheet, SheetContent } from "design-system/components/ui/sheet";
 import { isLTR } from "shared/utils/helpers";
 import URLS from "shared/utils/urls";
-import CompareModelContainer from "../compare/compare-model-container";
 import LanguageConverter from "../converters/language-converter";
-import WishlistSidebar from "../wishlist/wishlist-sidebar";
 
 export default function MobileSidebarSheet() {
   const data = modalAtom.useValue();
@@ -124,10 +122,6 @@ export default function MobileSidebarSheet() {
                 {trans("blog")}
               </Link>
             </div>
-            <Separator className="my-1" />
-            <WishlistSidebar navbar={true} />
-            <Separator className="my-1" />
-            <CompareModelContainer />
             <Separator className="my-1" />
             <div className="flex items-center gap-1" onClick={handleClose}>
               <Link
