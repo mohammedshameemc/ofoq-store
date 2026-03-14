@@ -77,8 +77,8 @@ export default function ImagesModel() {
               src={image.url}
               alt={image.name}
               className={cn(
-                "max-w-[200px] max-h-[80px] rounded-lg p-1",
-                current === index + 1 && "border-[1.5px] border-cyan-400",
+                "max-w-[200px] max-h-[80px] rounded-lg p-1 transition-all",
+                current === index + 1 && "border-2 border-cyan-400 shadow-md",
               )}
             />
           ))}

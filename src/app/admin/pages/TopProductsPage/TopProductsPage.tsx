@@ -100,7 +100,7 @@ export default function TopProductsPage() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gray-50/80 border-b border-gray-200">
+                    <tr className="bg-gray-50/80 border-b border-borderLight">
                       <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                         #
                       </th>
@@ -125,7 +125,7 @@ export default function TopProductsPage() {
                     {products.map((product, idx) => (
                       <tr
                         key={product.id}
-                        className={`border-b border-gray-100 hover:bg-[#2b38d1]/[0.03] transition-colors ${
+                        className={`border-b border-borderLight hover:bg-[#2b38d1]/[0.03] transition-colors ${
                           idx % 2 === 1 ? "bg-gray-50/40" : "bg-white"
                         }`}>
                         <td className="px-6 py-3.5">

@@ -394,7 +394,7 @@ export default function AddEditProductPage({ params }: Props) {
                     value={name}
                     onChange={e => setName(e.target.value)}
                     placeholder="e.g. Sony WH-1000XM5 Headphones"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
+                    className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
                   />
                 </div>
 
@@ -408,7 +408,7 @@ export default function AddEditProductPage({ params }: Props) {
                     value={shortDescription}
                     onChange={e => setShortDescription(e.target.value)}
                     placeholder="Brief summary of the product"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
+                    className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
                   />
                 </div>
 
@@ -422,7 +422,7 @@ export default function AddEditProductPage({ params }: Props) {
                     onChange={e => setDescription(e.target.value)}
                     placeholder="Detailed product description..."
                     rows={4}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none resize-none"
+                    className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none resize-none"
                   />
                 </div>
               </div>
@@ -446,7 +446,7 @@ export default function AddEditProductPage({ params }: Props) {
                       value={spec.key}
                       onChange={e => updateSpec(i, 'key', e.target.value)}
                       placeholder="e.g. Screen Size"
-                      className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none text-sm"
+                      className="flex-1 px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none text-sm"
                     />
                     <span className="text-gray-400 font-medium text-sm flex-shrink-0">—</span>
                     <input
@@ -454,7 +454,7 @@ export default function AddEditProductPage({ params }: Props) {
                       value={spec.value}
                       onChange={e => updateSpec(i, 'value', e.target.value)}
                       placeholder="e.g. 10.9 inch"
-                      className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none text-sm"
+                      className="flex-1 px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none text-sm"
                     />
                     <button
                       type="button"
@@ -503,7 +503,7 @@ export default function AddEditProductPage({ params }: Props) {
                       value={price}
                       onChange={e => setPrice(e.target.value)}
                       placeholder="0.00"
-                      className="w-full pl-14 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
+                      className="w-full pl-14 pr-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
                     />
                   </div>
                 </div>
@@ -522,7 +522,7 @@ export default function AddEditProductPage({ params }: Props) {
                       value={salePrice}
                       onChange={e => setSalePrice(e.target.value)}
                       placeholder="0.00"
-                      className="w-full pl-14 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
+                      className="w-full pl-14 pr-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
                     />
                   </div>
                   {discount > 0 && (
@@ -555,7 +555,7 @@ export default function AddEditProductPage({ params }: Props) {
                       setCategory(e.target.value);
                       setSubcategory("");
                     }}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white">
+                    className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white">
                     <option value="">Select a category</option>
                     {categories.map(cat => (
                       <option key={cat.id} value={cat.id}>
@@ -574,7 +574,7 @@ export default function AddEditProductPage({ params }: Props) {
                     value={subcategory}
                     onChange={e => setSubcategory(e.target.value)}
                     disabled={!category || subcategories.length === 0}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white disabled:bg-gray-100 disabled:cursor-not-allowed">
+                    className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white disabled:bg-gray-100 disabled:cursor-not-allowed">
                     <option value="">
                       {!category
                         ? "Select a category first"
@@ -604,7 +604,7 @@ export default function AddEditProductPage({ params }: Props) {
                     {/* Selected chips + trigger */}
                     <div
                       onClick={() => setTagsOpen(o => !o)}
-                      className="min-h-[44px] w-full px-3 py-2 border border-gray-300 rounded-lg cursor-pointer focus-within:ring-2 focus-within:ring-[#2b38d1] focus-within:border-transparent flex flex-wrap gap-2 items-center bg-white">
+                      className="min-h-[44px] w-full px-3 py-2 border border-borderLight rounded-lg cursor-pointer focus-within:ring-2 focus-within:ring-[#2b38d1] focus-within:border-transparent flex flex-wrap gap-2 items-center bg-white">
                       {selectedTags.length === 0 && (
                         <span className="text-gray-400 text-sm select-none">
                           Select up to {MAX_TAGS} tags…
@@ -639,7 +639,7 @@ export default function AddEditProductPage({ params }: Props) {
 
                     {/* Dropdown list */}
                     {tagsOpen && (
-                      <div className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-52 overflow-auto">
+                      <div className="absolute z-10 mt-1 w-full bg-white border border-borderLight rounded-lg shadow-lg max-h-52 overflow-auto">
                         {tagsLoading && (
                           <div className="flex items-center justify-center gap-2 px-4 py-4 text-sm text-gray-400">
                             <AiOutlineLoading3Quarters className="animate-spin h-4 w-4" />
@@ -682,7 +682,7 @@ export default function AddEditProductPage({ params }: Props) {
                   <select
                     value={status}
                     onChange={e => setStatus(e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white">
+                    className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white">
                     <option value="active">Active</option>
                     <option value="draft">Draft</option>
                     <option value="inactive">Inactive</option>
@@ -701,7 +701,7 @@ export default function AddEditProductPage({ params }: Props) {
                         onChange={e => setFeatured(e.target.checked)}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:ring-2 peer-focus:ring-[#2b38d1] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2b38d1]"></div>
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:ring-2 peer-focus:ring-[#2b38d1] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-borderLight after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2b38d1]"></div>
                     </div>
                     <div>
                       <span className="text-sm font-medium text-gray-700">
@@ -739,7 +739,7 @@ export default function AddEditProductPage({ params }: Props) {
                 {images.map((img, idx) => (
                   <div
                     key={img.id}
-                    className="relative aspect-square border-2 border-gray-200 rounded-xl overflow-hidden group bg-gray-50 shadow-md">
+                    className="relative aspect-square border-2 border-borderLight rounded-xl overflow-hidden group bg-gray-50 shadow-md">
                     {img.url ? (
                       <img
                         src={img.url}
@@ -774,8 +774,8 @@ export default function AddEditProductPage({ params }: Props) {
                     onDrop={handleDropImages}
                     className={`aspect-square border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-2 transition-all cursor-pointer ${
                       isDragOver
-                        ? "border-[#2b38d1] bg-[#2b38d1]/5 text-[#2b38d1] scale-[1.02]"
-                        : "border-gray-300 text-gray-400 hover:text-[#2b38d1] hover:border-[#2b38d1]"
+                        ? "border-[#2b38d1] bg-[#2b38d1]/5 text-[#2b38d1] scale-[1.02] shadow-lg"
+                        : "border-borderLight text-gray-400 hover:text-[#2b38d1] hover:border-[#2b38d1] hover:shadow-md"
                     }`}>
                     <AiOutlinePlus className="h-8 w-8" />
                     <span className="text-xs font-medium text-center leading-tight">
@@ -795,7 +795,7 @@ export default function AddEditProductPage({ params }: Props) {
           <div className="flex items-center justify-end gap-3 pb-4">
             <button
               onClick={() => navigateTo(URLS.admin.products)}
-              className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium shadow-md">
+              className="px-6 py-2.5 border border-borderLight text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium shadow-md">
               Cancel
             </button>
             <button

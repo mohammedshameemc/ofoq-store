@@ -16,7 +16,7 @@ export default function StickyAddToCart({ product }: StickyAddToCartProps) {
             loading="lazy"
             src={product.images[0].url}
             alt={""}
-            className="w-16 h-16 object-cover border border-slate-300 rounded-md p-1"
+            className="w-16 h-16 object-cover border border-borderLight rounded-md p-1 shadow-sm"
           />
           <div className="flex flex-col items-start gap-1 w-full max-w-[350px]">
             <h1 className="text-primary font-bold text-sm line-clamp-2">

@@ -33,9 +33,9 @@ export default function ShippingMethod({ form }: ShippingMethodProps) {
                 onValueChange={field.onChange}
                 defaultValue={field.value}
                 className="flex flex-col gap-0 w-full">
-                <FormItem
+                  <FormItem
                   className={cn(
-                    "flex items-start justify-between w-full space-x-3 space-y-0 border border-slate-300",
+                    "flex items-start justify-between w-full space-x-3 space-y-0 border border-borderLight shadow-sm",
                     "p-5 rounded-md rounded-b-none",
                     field.value === "economy"
                       ? "border-lightAqua bg-lightGray"
@@ -60,7 +60,7 @@ export default function ShippingMethod({ form }: ShippingMethodProps) {
                 </FormItem>
                 <FormItem
                   className={cn(
-                    "flex items-start justify-between w-full space-x-3 space-y-0 border border-slate-300",
+                    "flex items-start justify-between w-full space-x-3 space-y-0 border border-borderLight shadow-sm",
                     "p-5 rounded-md rounded-t-none",
                     field.value === "standard"
                       ? "border-lightAqua bg-lightGray"

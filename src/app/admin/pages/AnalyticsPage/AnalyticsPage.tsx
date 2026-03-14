@@ -96,7 +96,7 @@ export default function AnalyticsPage() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-lg shadow-gray-200/60 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all border border-gray-100">
+              className="bg-white rounded-xl shadow-lg shadow-gray-200/60 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all border border-borderLight">
               <div className="flex items-center justify-between mb-4">
                 <div className="p-3 bg-[#2b38d1]/10 rounded-lg text-[#2b38d1]">
                   {stat.icon}
@@ -173,7 +173,7 @@ export default function AnalyticsPage() {
               {topSellingProducts.map((product, index) => (
                 <div
                   key={index}
-                  className="flex items-start justify-between pb-4 border-b border-gray-100 last:border-0 last:pb-0">
+                  className="flex items-start justify-between pb-4 border-b border-borderLight last:border-0 last:pb-0">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-[#2b38d1] text-white rounded-lg flex items-center justify-center text-sm font-bold">
                       {index + 1}

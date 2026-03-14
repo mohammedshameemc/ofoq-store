@@ -32,7 +32,7 @@ export default function CheckoutSummaryDetailsCartItem({
           <h1 className="line-clamp-1">{translateText(item.product.name)}</h1>
         </div>
       </div>
-      <h1>{formatPrice(item.total.finalPrice, currentCurrency)}</h1>
+      <h1>{formatPrice(item.total.finalPrice)}</h1>
     </div>
   );
 }

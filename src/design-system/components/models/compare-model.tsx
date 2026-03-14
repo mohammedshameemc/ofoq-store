@@ -50,11 +50,11 @@ export default function CompareModel() {
           </DialogTitle>
         </DialogHeader>
         {compareProducts.length > 0 ? (
-          <Table className="border-[.5px] border-slate-300 m-5 scrollbar">
+          <Table className="border border-borderLight m-5 scrollbar shadow-sm rounded-lg overflow-hidden">
             <TableHeader>
               <TableRow>
                 <TableHead
-                  className="border-r-[.5px] border-slate-300 text-base
+                  className="border-r-[.5px] border-borderLight text-base
                  font-normal text-primary">
                   {trans("Products")}
                 </TableHead>

@@ -80,6 +80,7 @@ export default {
         lightAqua: `#33b8e8`,
         overlay: `#000000b3`,
         borderLight: `#e5e8ec`,
+        borderPremium: `#f0f2f5`,
         lightRed: `#EFEFEF`,
         lightGreen: `#EFEFEF`,
         iconColor: `#888`,

@@ -202,7 +202,7 @@ export default function AddEditCategoryPage({ params }: Props) {
                 <select
                   value={parentCategory}
                   onChange={e => setParentCategory(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white">
+                  className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white shadow-sm">
                   <option value="">None (Top-level Category)</option>
                   {parentCategories
                     .filter(c => c.id !== categoryId)
@@ -254,7 +254,7 @@ export default function AddEditCategoryPage({ params }: Props) {
                     placeholder={
                       isSubcategory ? "e.g. True Wireless Earbuds" : "e.g. Audio"
                     }
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none"
+                    className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none shadow-sm"
                   />
                 </div>
 
@@ -268,7 +268,7 @@ export default function AddEditCategoryPage({ params }: Props) {
                     onChange={e => setDescription(e.target.value)}
                     placeholder="Describe this category..."
                     rows={3}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none resize-none"
+                    className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none resize-none shadow-sm"
                   />
                 </div>
               </div>
@@ -331,8 +331,8 @@ export default function AddEditCategoryPage({ params }: Props) {
                   onDrop={handleDrop}
                   className={`w-48 h-48 border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-2 transition-all cursor-pointer ${
                     isDragOver
-                      ? "border-[#2b38d1] bg-[#2b38d1]/5 text-[#2b38d1] scale-[1.02]"
-                      : "border-gray-300 text-gray-400 hover:text-[#2b38d1] hover:border-[#2b38d1]"
+                      ? "border-[#2b38d1] bg-[#2b38d1]/5 text-[#2b38d1] scale-[1.02] shadow-lg"
+                      : "border-borderLight text-gray-400 hover:text-[#2b38d1] hover:border-[#2b38d1] hover:shadow-md"
                   }`}>
                   <AiOutlineCloudUpload className="h-10 w-10" />
                   <span className="text-xs font-medium">{isDragOver ? "Drop to upload" : "Upload or drag image"}</span>
@@ -362,7 +362,7 @@ export default function AddEditCategoryPage({ params }: Props) {
                       value="active"
                       checked={status === "active"}
                       onChange={e => setStatus(e.target.value)}
-                      className="w-4 h-4 text-[#2b38d1] focus:ring-[#2b38d1] border-gray-300"
+                      className="w-4 h-4 text-[#2b38d1] focus:ring-[#2b38d1] border-borderLight"
                     />
                     <span className="text-sm text-gray-700">Active</span>
                     <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-800">
@@ -376,7 +376,7 @@ export default function AddEditCategoryPage({ params }: Props) {
                       value="inactive"
                       checked={status === "inactive"}
                       onChange={e => setStatus(e.target.value)}
-                      className="w-4 h-4 text-[#2b38d1] focus:ring-[#2b38d1] border-gray-300"
+                      className="w-4 h-4 text-[#2b38d1] focus:ring-[#2b38d1] border-borderLight"
                     />
                     <span className="text-sm text-gray-700">Inactive</span>
                     <span className="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
@@ -395,7 +395,7 @@ export default function AddEditCategoryPage({ params }: Props) {
             </div>
             <div className="p-6">
               <div className="max-w-xs">
-                <div className="border border-gray-200 rounded-xl overflow-hidden bg-white">
+                <div className="border border-borderLight rounded-xl overflow-hidden bg-white">
                   <div className="w-full h-36 bg-gray-100 flex items-center justify-center overflow-hidden">
                     {currentImageSrc ? (
                       <img
@@ -443,7 +443,7 @@ export default function AddEditCategoryPage({ params }: Props) {
           <div className="flex items-center justify-end gap-3 pb-4">
             <button
               onClick={() => navigateTo(URLS.admin.categories)}
-              className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium shadow-md">
+              className="px-6 py-2.5 border border-borderLight text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium shadow-sm hover:shadow-md">
               Cancel
             </button>
             <button

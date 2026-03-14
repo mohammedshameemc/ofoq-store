@@ -327,9 +327,9 @@ export default function ProductsPage() {
       </div>
 
       <div className="p-8">
-        <div className="bg-white rounded-xl shadow-xl border border-gray-200">
+        <div className="bg-white rounded-xl shadow-xl border border-borderLight">
           {/* Filters */}
-          <div className="p-5 border-b border-gray-100">
+          <div className="p-5 border-b border-borderLight">
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex-1 min-w-[280px]">
                 <div className="relative">
@@ -339,14 +339,14 @@ export default function ProductsPage() {
                     placeholder="Search by name..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-2 text-sm border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none transition-all shadow-sm focus:shadow-md"
                   />
                 </div>
               </div>
               <select
                 value={categoryFilter}
                 onChange={e => setCategoryFilter(e.target.value)}
-                className="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none bg-white transition-all">
+                className="px-3 py-2 text-sm border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none bg-white transition-all shadow-sm">
                 <option value="all">All Categories</option>
                 {categories.map(cat => (
                   <option key={cat.id} value={cat.id}>
@@ -357,7 +357,7 @@ export default function ProductsPage() {
               <select
                 value={statusFilter}
                 onChange={e => setStatusFilter(e.target.value)}
-                className="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none bg-white transition-all">
+                className="px-3 py-2 text-sm border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none bg-white transition-all shadow-sm">
                 <option value="all">All Status</option>
                 <option value="active">Active</option>
                 <option value="draft">Draft</option>
@@ -370,7 +370,7 @@ export default function ProductsPage() {
 
           {/* Selected actions bar */}
           {selectedRows.length > 0 && (
-            <div className="px-5 py-2.5 bg-[#2b38d1]/5 border-b border-[#2b38d1]/10 flex items-center gap-4">
+            <div className="px-5 py-2.5 bg-[#2b38d1]/5 border-b border-[#2b38d1]/10 flex items-center gap-4 shadow-sm">
               <span className="text-sm font-medium text-[#2b38d1]">
                 {selectedRows.length} selected
               </span>
@@ -404,7 +404,7 @@ export default function ProductsPage() {
             ) : (
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-50/80 border-b border-gray-200">
+                  <tr className="bg-gray-50/80 border-b border-borderLight">
                     <th className="w-12 px-5 py-3">
                       <input
                         type="checkbox"
@@ -413,7 +413,7 @@ export default function ProductsPage() {
                           products.length > 0
                         }
                         onChange={toggleAll}
-                        className="h-4 w-4 rounded border-gray-300 text-[#2b38d1] focus:ring-[#2b38d1]/20"
+                        className="h-4 w-4 rounded border-borderLight text-[#2b38d1] focus:ring-[#2b38d1]/20"
                       />
                     </th>
                     <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
@@ -439,7 +439,7 @@ export default function ProductsPage() {
                     return (
                       <tr
                         key={product.id}
-                        className={`border-b border-gray-100 transition-colors ${
+                        className={`border-b border-borderLight transition-colors ${
                           isSelected
                             ? "bg-[#2b38d1]/[0.03]"
                             : idx % 2 === 1
@@ -451,7 +451,7 @@ export default function ProductsPage() {
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => toggleRow(product.id)}
-                            className="h-4 w-4 rounded border-gray-300 text-[#2b38d1] focus:ring-[#2b38d1]/20"
+                            className="h-4 w-4 rounded border-borderLight text-[#2b38d1] focus:ring-[#2b38d1]/20"
                           />
                         </td>
                         <td className="px-5 py-3.5">
@@ -557,7 +557,7 @@ export default function ProductsPage() {
 
           {/* Pagination */}
           {!loading && total > 0 && (
-            <div className="px-5 py-4 border-t border-gray-100 flex items-center justify-between">
+            <div className="px-5 py-4 border-t border-borderLight flex items-center justify-between">
               <p className="text-sm text-gray-500">
                 Showing{" "}
                 <span className="font-medium text-gray-700">
@@ -571,7 +571,7 @@ export default function ProductsPage() {
                 <button
                   disabled={page <= 1}
                   onClick={() => setPage(p => p - 1)}
-                  className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                  className="p-2 border border-borderLight rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                   <AiOutlineLeft className="h-4 w-4 text-gray-600" />
                 </button>
                 {Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -591,7 +591,7 @@ export default function ProductsPage() {
                         className={`min-w-[36px] h-9 rounded-lg text-sm font-medium transition-colors ${
                           p === page
                             ? "bg-[#2b38d1] text-white"
-                            : "border border-gray-200 hover:bg-gray-50 text-gray-600"
+                            : "border border-borderLight hover:bg-gray-50 text-gray-600"
                         }`}>
                         {p}
                       </button>
@@ -600,7 +600,7 @@ export default function ProductsPage() {
                 <button
                   disabled={page >= totalPages}
                   onClick={() => setPage(p => p + 1)}
-                  className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                  className="p-2 border border-borderLight rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                   <AiOutlineRight className="h-4 w-4 text-gray-600" />
                 </button>
               </div>

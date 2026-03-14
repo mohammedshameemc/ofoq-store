@@ -121,7 +121,7 @@ export default function ConfirmModal({
             ref={cancelBtnRef}
             onClick={onCancel}
             disabled={loading}
-            className="px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-40">
+            className="px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-borderLight rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-40">
             {cancelLabel}
           </button>
           <button

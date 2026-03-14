@@ -39,7 +39,7 @@ export default function WishlistItem({
             {translateText(wishlistItem.name)}
           </h1>
           <h2 className="text-blue text-sm font-semibold">
-            {formatPrice(wishlistItem.price, currentCurrency)}
+            {formatPrice(wishlistItem.price)}
           </h2>
         </div>
       </div>

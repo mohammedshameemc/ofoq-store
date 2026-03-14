@@ -198,9 +198,9 @@ export default function CategoriesPage() {
       </div>
 
       <div className="p-8">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200/80 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-xl border border-borderLight/80 overflow-hidden">
           {/* ── Toolbar ──────────────────────────────────── */}
-          <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/40">
+          <div className="px-6 py-4 border-b border-borderLight bg-gray-50/40">
             <div className="flex flex-wrap items-center gap-3">
               {/* Search */}
               <div className="flex-1 min-w-[260px] max-w-md">
@@ -211,13 +211,13 @@ export default function CategoriesPage() {
                     placeholder="Search categories..."
                     value={searchInput}
                     onChange={e => setSearchInput(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none transition-all placeholder:text-gray-400"
+                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-borderLight rounded-xl focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none transition-all placeholder:text-gray-400 shadow-sm focus:shadow-md"
                   />
                 </div>
               </div>
 
               {/* Status filter pills */}
-              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-1 gap-0.5">
+              <div className="flex items-center bg-white border border-borderLight rounded-xl p-1 gap-0.5">
                 {["all", "active", "inactive"].map(s => (
                   <button
                     key={s}
@@ -243,7 +243,7 @@ export default function CategoriesPage() {
                       allExpanded ? [] : allExpandable.map(c => c.id),
                     )
                   }
-                  className="px-3.5 py-2 text-xs font-medium border border-[#2b38d1] rounded-xl hover:bg-[#2330b0] transition-colors text-white bg-[#2b38d1]">
+                  className="px-3.5 py-2 text-xs font-medium border-0 rounded-xl hover:bg-[#2330b0] transition-colors text-white bg-[#2b38d1] shadow-md hover:shadow-lg">
                   {allExpanded ? "Collapse All" : "Expand All"}
                 </button>
               )}
@@ -257,7 +257,7 @@ export default function CategoriesPage() {
                     setPerPage(Number(e.target.value));
                     setPage(1);
                   }}
-                  className="px-2 py-1.5 border border-gray-200 rounded-lg bg-white text-xs focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none">
+                  className="px-2 py-1.5 border border-borderLight rounded-lg bg-white text-xs focus:ring-2 focus:ring-[#2b38d1]/20 focus:border-[#2b38d1] outline-none shadow-sm">
                   {PER_PAGE_OPTIONS.map(n => (
                     <option key={n} value={n}>
                       {n}
@@ -299,7 +299,7 @@ export default function CategoriesPage() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200">
+                    <tr className="border-b border-borderLight">
                       <th className="w-12 px-6 py-3.5" />
                       <th className="text-left px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-widest">
                         Category
@@ -321,7 +321,7 @@ export default function CategoriesPage() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
+                  <tbody className="divide-y divide-borderLight">
                     {categories.map(category => {
                       const isExpanded = expandedRows.includes(category.id);
                       const hasSubs = category.subcategories.length > 0;
@@ -487,7 +487,7 @@ export default function CategoriesPage() {
                               return (
                                 <tr
                                   key={sub.id}
-                                  className={`bg-[#f8faff] hover:bg-[#eef1ff] transition-colors ${!isLast ? "border-b border-[#e8ecff]" : ""}`}>
+                                  className={`bg-[#f8faff] hover:bg-[#eef1ff] transition-colors ${!isLast ? "border-b border-borderLight" : ""}`}>
                                   {/* Connector line */}
                                   <td className="px-6 py-3">
                                     <div className="flex justify-center">
@@ -624,7 +624,7 @@ export default function CategoriesPage() {
               </div>
 
               {/* ── Pagination ──────────────────────────────── */}
-              <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between bg-gray-50/30">
+              <div className="px-6 py-4 border-t border-borderLight flex items-center justify-between bg-gray-50/30">
                 {/* Info text */}
                 <p className="text-sm text-gray-500">
                   Showing{" "}
@@ -645,7 +645,7 @@ export default function CategoriesPage() {
                     <button
                       disabled={page === 1}
                       onClick={() => setPage(p => p - 1)}
-                      className="w-9 h-9 flex items-center justify-center border border-gray-200 rounded-xl hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-white">
+                      className="w-9 h-9 flex items-center justify-center border border-borderLight rounded-xl hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-white">
                       <AiOutlineLeft className="h-3.5 w-3.5 text-gray-600" />
                     </button>
 
@@ -664,7 +664,7 @@ export default function CategoriesPage() {
                           className={`min-w-[36px] h-9 px-1 rounded-xl text-sm font-medium transition-all ${
                             page === n
                               ? "bg-[#2b38d1] text-white shadow-sm shadow-[#2b38d1]/25"
-                              : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                              : "bg-white border border-borderLight text-gray-600 hover:bg-gray-50"
                           }`}>
                           {n}
                         </button>
@@ -675,7 +675,7 @@ export default function CategoriesPage() {
                     <button
                       disabled={page === totalPages}
                       onClick={() => setPage(p => p + 1)}
-                      className="w-9 h-9 flex items-center justify-center border border-gray-200 rounded-xl hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-white">
+                      className="w-9 h-9 flex items-center justify-center border border-borderLight rounded-xl hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors bg-white">
                       <AiOutlineRight className="h-3.5 w-3.5 text-gray-600" />
                     </button>
                   </div>

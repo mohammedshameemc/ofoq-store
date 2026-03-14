@@ -24,7 +24,7 @@ export default function HandleProductQuantity({
     <>
       {product.inStock && (
         <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-5 my-3">
-          <div className="col-span-1 border-[1px] border-slate-200 rounded-full flex items-center py-2 px-5 justify-between">
+          <div className="col-span-1 border border-borderLight rounded-full flex items-center py-2 px-5 justify-between shadow-sm hover:shadow-md transition-all">
             <FaMinus
               className="w-4 h-4 mr-1 cursor-pointer text-primary "
               onClick={handleDecreaseQuantity}

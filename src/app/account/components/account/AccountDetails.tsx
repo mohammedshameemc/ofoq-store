@@ -9,7 +9,7 @@ import {
 
 export default function AccountDetails() {
   return (
-    <Table className="border-[.5px] border-slate-300">
+    <Table className="border border-borderLight shadow-sm rounded-lg overflow-hidden">
       <TableBody>
         <TableRow>
           <TableCell className="table-cell text-sm font-normal text-slate-900 min-w-[200px] md:w-[300px]">

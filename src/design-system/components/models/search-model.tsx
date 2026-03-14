@@ -35,7 +35,7 @@ export default function SearchModel() {
         <div className="relative w-full">
           <Input
             placeholder={trans("searchInputModelPlaceHolder")}
-            className="rounded-md h-10 border-slate-300"
+            className="rounded-md h-10 border-borderLight"
             onChange={storeInputValue}
             type="text"
             value={value}

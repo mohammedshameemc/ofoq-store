@@ -1,4 +1,5 @@
 import { trans } from "@mongez/localization";
+import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { IoLocationOutline } from "react-icons/io5";
@@ -6,6 +7,8 @@ import { MdOutlineLogout } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 
 import { addressesAtom } from "app/account/atoms/address-atom";
+import { useLogout } from "app/account/hooks";
+import ConfirmModal from "app/admin/components/ConfirmModal";
 import { wishlistAtom } from "design-system/atoms/wishlist-atom";
 import URLS from "shared/utils/urls";
 import AccountSidebarRoute from "./AccountSidebarRoute";
@@ -13,6 +16,8 @@ import AccountSidebarRoute from "./AccountSidebarRoute";
 export default function AccountSidebar() {
   const wishlist = wishlistAtom.value;
   const addresses = addressesAtom.value;
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const logout = useLogout();
 
   const accountSidebarRoutes = [
     {
@@ -37,18 +42,40 @@ export default function AccountSidebar() {
       icon: <FaRegHeart className="w-5 h-5" />,
       data: (wishlist && wishlist.totalWishlist) || 0,
     },
-    {
-      label: trans("logout"),
-      path: URLS.auth.logout,
-      icon: <MdOutlineLogout className="w-5 h-5" />,
-    },
   ];
 
+  const handleLogout = () => {
+    logout();
+    setShowLogoutModal(false);
+  };
+
   return (
-    <div className="flex items-start gap-3 flex-col px-5">
-      {accountSidebarRoutes.map(route => (
-        <AccountSidebarRoute key={route.label} route={route} />
-      ))}
-    </div>
+    <>
+      <div className="flex items-start gap-3 flex-col px-5">
+        {accountSidebarRoutes.map(route => (
+          <AccountSidebarRoute key={route.label} route={route} />
+        ))}
+        
+        {/* Logout Button */}
+        <button
+          onClick={() => setShowLogoutModal(true)}
+          className="w-full px-2 py-3 flex items-center justify-start gap-2 text-slate-700 bg-[#f6f6f6] hover:bg-slate-900 hover:text-white transition-all rounded-sm text-sm">
+          <MdOutlineLogout className="w-5 h-5" />
+          <p className="font-semibold">{trans("logout").toUpperCase()}</p>
+        </button>
+      </div>
+
+      {/* Logout Confirmation Modal */}
+      <ConfirmModal
+        open={showLogoutModal}
+        title="Confirm Logout"
+        message="Are you sure you want to logout? You will be redirected to the home page."
+        confirmLabel="Logout"
+        cancelLabel="Cancel"
+        variant="warning"
+        onConfirm={handleLogout}
+        onCancel={() => setShowLogoutModal(false)}
+      />
+    </>
   );
 }

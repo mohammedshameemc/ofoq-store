@@ -3,7 +3,7 @@
 @tailwind utilities;
 @font-face {
   font-family: "Bai";
-  src: url("assets/fonts/BaiJamjuree-Regular.ttf") format("woff2");
+  src: url("shared/assets/fonts/BaiJamjuree-Regular.ttf") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
@@ -28,7 +28,7 @@ html {
 }
 
 .table-cell {
-  @apply border-r-[.5px] border-t-[.5px] border-slate-300 px-4;
+  @apply border-r-[.5px] border-t-[.5px] border-borderLight px-4;
 }
 
 html {

@@ -1,5 +1,6 @@
 import { navigateTo } from "@mongez/react-router";
 import { AuthGuard } from "app/admin/components/AuthGuard";
+import ConfirmModal from "app/admin/components/ConfirmModal";
 import { PropsWithChildren, useEffect, useState } from "react";
 import {
   AiOutlineAppstore,
@@ -22,6 +23,8 @@ interface SidebarItem {
 export default function AdminLayout({ children }: PropsWithChildren) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // Update current path on route changes
   useEffect(() => {
@@ -62,6 +65,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
   ];
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     try {
       await authService.logout();
       navigateTo(URLS.admin.login);
@@ -69,6 +73,9 @@ export default function AdminLayout({ children }: PropsWithChildren) {
       console.error("Logout error:", error);
       localStorage.removeItem("adminUser");
       navigateTo(URLS.admin.login);
+    } finally {
+      setIsLoggingOut(false);
+      setShowLogoutModal(false);
     }
   };
 
@@ -84,9 +91,9 @@ export default function AdminLayout({ children }: PropsWithChildren) {
         <aside
           className={`${
             isSidebarOpen ? "w-72" : "w-[76px]"
-          } bg-white border-r border-gray-200 transition-all duration-300 ease-in-out flex flex-col relative z-10`}>
+          } bg-white border-r border-borderLight transition-all duration-300 ease-in-out flex flex-col relative z-10`}>
           {/* Logo */}
-          <div className="h-[68px] flex items-center justify-between px-5 border-b border-gray-200">
+          <div className="h-[68px] flex items-center justify-between px-5 border-b border-borderLight">
             {isSidebarOpen && (
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 bg-[#2b38d1] rounded-lg flex items-center justify-center shadow-md shadow-[#2b38d1]/20">
@@ -152,7 +159,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
           </nav>
 
           {/* User Profile */}
-          <div className="border-t border-gray-200 p-4">
+          <div className="border-t border-borderLight p-4">
             <div
               className={`flex items-center gap-3 ${!isSidebarOpen && "justify-center"}`}>
               <div className="h-10 w-10 rounded-xl bg-[#2b38d1] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
@@ -171,7 +178,7 @@ export default function AdminLayout({ children }: PropsWithChildren) {
             </div>
             {isSidebarOpen && (
               <button
-                onClick={handleLogout}
+                onClick={() => setShowLogoutModal(true)}
                 className="w-full mt-3 flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all font-medium">
                 <AiOutlineLogout className="h-4 w-4" />
                 Logout
@@ -185,6 +192,19 @@ export default function AdminLayout({ children }: PropsWithChildren) {
           <div className="h-full">{children}</div>
         </main>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      <ConfirmModal
+        open={showLogoutModal}
+        title="Confirm Logout"
+        message="Are you sure you want to logout? You will need to sign in again to access the admin panel."
+        confirmLabel="Logout"
+        cancelLabel="Cancel"
+        variant="warning"
+        loading={isLoggingOut}
+        onConfirm={handleLogout}
+        onCancel={() => setShowLogoutModal(false)}
+      />
     </AuthGuard>
   );
 }

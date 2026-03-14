@@ -49,7 +49,7 @@ export default function SearchResult({
           <>
             {data.products.slice(0, 5).map((product: Product) => (
               <div
-                className="flex items-center gap-4 w-full border-b border-dashed border-slate-300 pb-3"
+                className="flex items-center gap-4 w-full border-b border-dashed border-borderLight pb-3"
                 key={product.id}
                 onClick={() => viewProduct(product.id)}>
                 <div className="w-12 h-12 md:min-w-16 md:h-16 cursor-pointer">
