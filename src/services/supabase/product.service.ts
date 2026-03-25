@@ -51,8 +51,11 @@ class ProductService {
     category?: string;
     status?: string;
     featured?: boolean;
+    excludeInactive?: boolean;
     page?: number;
     perPage?: number;
+    minPrice?: number;
+    maxPrice?: number;
   }): Promise<{ data: any[]; total: number }> {
     const page = filters?.page ?? 1;
     const perPage = filters?.perPage ?? 10;
@@ -61,13 +64,14 @@ class ProductService {
 
     let query = supabase
       .from('products')
-      .select('*, categories!products_category_id_fkey(name), subcategories:categories!products_subcategory_id_fkey(name)', { count: 'exact' });
+      .select('*, categories!products_category_id_fkey(name), subcategories:categories!products_subcategory_id_fkey(name), product_images(id, image_url, sort_order)', { count: 'exact' });
 
     if (filters?.search) {
       query = query.ilike('name', `%${filters.search}%`);
     }
     if (filters?.category && filters.category !== 'all') {
-      query = query.eq('category_id', filters.category);
+      // Check both category_id and subcategory_id to support filtering by parent category or subcategory
+      query = query.or(`category_id.eq.${filters.category},subcategory_id.eq.${filters.category}`);
     }
     if (filters?.status && filters.status !== 'all') {
       query = query.eq('status', filters.status);
@@ -75,13 +79,39 @@ class ProductService {
     if (filters?.featured !== undefined) {
       query = query.eq('featured', filters.featured);
     }
+    // Exclude inactive products on user side (show only active and out_of_stock)
+    if (filters?.excludeInactive) {
+      query = query.in('status', ['active', 'out_of_stock']);
+    }
 
     const { data, error, count } = await query
-      .order('created_at', { ascending: false })
-      .range(from, to);
+      .order('created_at', { ascending: false });
 
     if (error) throw new Error(error.message);
-    return { data: data ?? [], total: count ?? 0 };
+
+    // Apply price filtering on the client side to handle sale_price vs price logic
+    let filteredData = data ?? [];
+    
+    if (filters?.minPrice !== undefined || filters?.maxPrice !== undefined) {
+      filteredData = filteredData.filter((product: any) => {
+        // Use sale_price if available, otherwise use price
+        const effectivePrice = product.sale_price ?? product.price;
+        
+        if (filters.minPrice !== undefined && effectivePrice < filters.minPrice) {
+          return false;
+        }
+        if (filters.maxPrice !== undefined && effectivePrice > filters.maxPrice) {
+          return false;
+        }
+        return true;
+      });
+    }
+
+    // Apply pagination after filtering
+    const total = filteredData.length;
+    const paginatedData = filteredData.slice(from, to + 1);
+
+    return { data: paginatedData, total };
   }
 
   // ─── GET BY ID (WITH RELATIONS) ─────────────────────

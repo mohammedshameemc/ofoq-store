@@ -12,6 +12,7 @@ import { Button } from "../ui/button";
 import FiltersSection from "./FiltersSection";
 import FiltersSidebarSheet from "./FiltersSidebarSheet";
 import ProductCard from "./ProductCard";
+import ProductCardSkeleton from "./ProductCardSkeleton";
 
 type paginationInfoType = {
   limit: number;
@@ -23,7 +24,7 @@ type paginationInfoType = {
 
 interface ProductsListProps {
   products: Product[];
-  updateCategory: (categoryId: number) => void;
+  updateCategory: (categoryId: string) => void;
   updateInStock: (inStock: boolean) => void;
   updateMinPrice: (minPrice: number) => void;
   updateMaxPrice: (maxPrice: number) => void;
@@ -31,7 +32,8 @@ interface ProductsListProps {
   updatePageNumber: (page: number) => void;
   resetFiltersExceptQuery: () => void;
   filters: Filters;
-  paginationInfo: paginationInfoType;
+  paginationInfo: paginationInfoType | undefined;
+  isLoading: boolean;
 }
 
 export default function ProductsList({
@@ -45,6 +47,7 @@ export default function ProductsList({
   resetFiltersExceptQuery,
   updatePageNumber,
   paginationInfo,
+  isLoading,
 }: ProductsListProps) {
   const [gridLayout, setGridLayout] = useState<number>(4);
 
@@ -77,7 +80,7 @@ export default function ProductsList({
           ))}
         </select>
         <p className="text-darkGray text-sm font-medium">
-          {paginationInfo.total} {trans("Results")}
+          {paginationInfo?.total || 0} {trans("Results")}
         </p>
       </div>
 
@@ -95,7 +98,7 @@ export default function ProductsList({
 
         <div className="col-span-1 md:col-span-4 w-full">
           <div className="hidden md:flex items-center justify-between gap-2 flex-wrap w-full bg-white p-3 rounded-md mb-1">
-            {products.length > 0 && paginationInfo && (
+            {!isLoading && products.length > 0 && paginationInfo && (
               <div className="text-darkGray">
                 {trans("showing")}{" "}
                 <span>
@@ -139,7 +142,7 @@ export default function ProductsList({
               updateSortOptions={updateSortOptions}
             />
             <h1 className="text-sm text-primary">
-              {paginationInfo.total} {trans("Products")}
+              {paginationInfo?.total || 0} {trans("Products")}
             </h1>
           </div>
 
@@ -149,7 +152,12 @@ export default function ProductsList({
                 ? "2xl:grid 2xl:gap-y-1 2xl:grid-cols-3"
                 : "2xl:grid 2xl:gap-y-1 2xl:grid-cols-4"
             } flex items-center justify-center flex-wrap gap-1`}>
-            {products.length > 0 ? (
+            {isLoading ? (
+              // Skeleton loaders
+              Array.from({ length: 12 }).map((_, index) => (
+                <ProductCardSkeleton key={index} grid={gridLayout} />
+              ))
+            ) : products.length > 0 ? (
               products.map(product => (
                 <ProductCard
                   key={product.id}
@@ -164,37 +172,41 @@ export default function ProductsList({
             )}
           </div>
           <div className="flex items-center justify-center gap-2 text-white mt-4 w-full">
-            <Button
-              variant={"outline"}
-              onClick={() => updatePageNumber(filters.page - 1)}
-              disabled={paginationInfo.page === 1}>
-              <span className="block md:hidden">
-                <FaArrowLeftLong className="w-3 h-3" />
-              </span>
-              <span className="hidden md:block">{trans("Previous")}</span>
-            </Button>
-            <div
-              className="max-w-[300px] md:max-w-[470px] overflow-x-auto flex items-center gap-1"
-              style={{ scrollbarWidth: "none" }}>
-              {Array.from({ length: paginationInfo.pages }).map((_, index) => (
+            {paginationInfo && !isLoading && (
+              <>
                 <Button
-                  key={index}
-                  onClick={() => updatePageNumber(index + 1)}
-                  className="w-14"
-                  variant={filters.page === index + 1 ? "primary" : "outline"}>
-                  {index + 1}
+                  variant={"outline"}
+                  onClick={() => updatePageNumber(filters.page - 1)}
+                  disabled={paginationInfo.page === 1}>
+                  <span className="block md:hidden">
+                    <FaArrowLeftLong className="w-3 h-3" />
+                  </span>
+                  <span className="hidden md:block">{trans("Previous")}</span>
                 </Button>
-              ))}
-            </div>
-            <Button
-              variant={"outline"}
-              onClick={() => updatePageNumber(filters.page + 1)}
-              disabled={paginationInfo.pages <= paginationInfo.page}>
-              <span className="block md:hidden">
-                <FaArrowRightLong className="w-3 h-3" />
-              </span>
-              <span className="hidden md:block">{trans("Next")}</span>
-            </Button>
+                <div
+                  className="max-w-[300px] md:max-w-[470px] overflow-x-auto flex items-center gap-1"
+                  style={{ scrollbarWidth: "none" }}>
+                  {Array.from({ length: paginationInfo.pages }).map((_, index) => (
+                    <Button
+                      key={index}
+                      onClick={() => updatePageNumber(index + 1)}
+                      className="w-14"
+                      variant={filters.page === index + 1 ? "primary" : "outline"}>
+                      {index + 1}
+                    </Button>
+                  ))}
+                </div>
+                <Button
+                  variant={"outline"}
+                  onClick={() => updatePageNumber(filters.page + 1)}
+                  disabled={paginationInfo.pages <= paginationInfo.page}>
+                  <span className="block md:hidden">
+                    <FaArrowRightLong className="w-3 h-3" />
+                  </span>
+                  <span className="hidden md:block">{trans("Next")}</span>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -22,14 +22,14 @@ type paginationInfoType = {
 };
 
 interface FiltersSidebarSheetProps {
-  updateCategory: (categoryId: number) => void;
+  updateCategory: (categoryId: string) => void;
   updateInStock: (inStock: boolean) => void;
   updateMinPrice: (minPrice: number) => void;
   updateMaxPrice: (maxPrice: number) => void;
   updateSortOptions: (sort: string) => void;
   resetFiltersExceptQuery: () => void;
   filters: Filters;
-  paginationInfo: paginationInfoType;
+  paginationInfo: paginationInfoType | undefined;
 }
 
 export default function FiltersSidebarSheet({
@@ -63,7 +63,7 @@ export default function FiltersSidebarSheet({
           </SheetTitle>
         </SheetHeader>
         <p className="text-primary text-sm font-medium text-center mt-5">
-          {paginationInfo.total} {trans("Results")}
+          {paginationInfo?.total || 0} {trans("Results")}
         </p>
         <div className="flex flex-col items-start">
           <FiltersSection

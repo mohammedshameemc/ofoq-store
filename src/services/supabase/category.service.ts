@@ -130,7 +130,7 @@ class CategoryService {
   async getParentCategories() {
     const { data, error } = await supabase
       .from("categories")
-      .select("id, name")
+      .select("id, name, image_url, status")
       .is("parent_id", null)
       .order("name", { ascending: true });
 

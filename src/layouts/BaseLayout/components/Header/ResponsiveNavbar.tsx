@@ -11,7 +11,7 @@ export default function ResponsiveNavbar() {
         <Link href={URLS.home}>
           <BiHomeAlt2 className="w-6 h-6 sm:w-7 sm:h-7" />
         </Link>
-        <Link href={URLS.shop.collections}>
+        <Link href={`${URLS.shop.products}?page=1`}>
           <BiStore className="w-6 h-6 sm:w-7 sm:h-7" />
         </Link>
         <Link href={URLS.contactUs}>

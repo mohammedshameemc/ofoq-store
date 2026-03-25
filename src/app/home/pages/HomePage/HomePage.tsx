@@ -49,14 +49,14 @@ function _HomePage({ data }: HomePageProps) {
       <Helmet title="Home Page" />
       <div className="flex flex-col items-start gap-5 w-full max-w-[1400px] mx-auto py-6 px-4 ">
         <SliderRow column={sliderRow.columns} />
-        <CategoriesRow column={categoriesRow.columns} />
+        <CategoriesRow />
       </div>
       <div className="my-5 bg-lightGray w-full py-10">
         <div className="flex flex-col items-start gap-14 max-w-[1400px] mx-auto py-6 px-4">
-          <DealsRow column={dealsRow.columns} />
-          <TopSellingRow column={topSellingRow.columns} />
+          <DealsRow />
+          <TopSellingRow />
           <MiddleBannerRow column={middleBannerRow.columns} />
-          <RecommendedRow column={recommendedRow.columns} />
+          <RecommendedRow />
         </div>
       </div>
     </div>

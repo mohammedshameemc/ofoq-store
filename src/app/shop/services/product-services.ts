@@ -17,7 +17,7 @@ export async function getProduct(id: string | number) {
       price: productData.price,
       salePrice: productData.sale_price,
       discount: productData.discount || 0,
-      inStock: productData.stock > 0,
+      inStock: productData.status === 'active' && productData.stock > 0,
       stock: productData.stock,
       description: [
         { localeCode: 'en', value: productData.description || '' },
@@ -73,7 +73,7 @@ export async function getProduct(id: string | number) {
       try {
         const { data: relatedData } = await productService.getProducts({
           category: productData.category_id,
-          status: 'active',
+          excludeInactive: true,
           perPage: 8,
         });
 
@@ -91,7 +91,7 @@ export async function getProduct(id: string | number) {
             price: product.price,
             salePrice: product.sale_price,
             discount: product.discount || 0,
-            inStock: product.stock > 0,
+            inStock: product.status === 'active' && product.stock > 0,
             stock: product.stock,
             images: [
               { id: '1', url: product.image_url || '/placeholder.png', alt: product.name },

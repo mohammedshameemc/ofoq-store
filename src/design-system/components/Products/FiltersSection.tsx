@@ -1,9 +1,10 @@
 import { trans } from "@mongez/localization";
 import { debounce } from "@mongez/reinforcements";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LuX } from "react-icons/lu";
+import { ChevronRightIcon, ChevronDownIcon } from "@radix-ui/react-icons";
+import { cn } from "shared/lib/utils";
 
-import { categoryAtom } from "design-system/atoms/category-atom";
 import {
   Accordion,
   AccordionContent,
@@ -12,13 +13,13 @@ import {
 } from "design-system/components/ui/accordion";
 import { FaMinus } from "react-icons/fa6";
 import { Filters } from "shared/hooks/use-filters";
-import { translateText } from "shared/utils/translate-text";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
+import { categoryService, CategoryWithChildren } from "services/supabase/category.service";
 
 interface FiltersSectionProps {
-  updateCategory: (categoryId: number) => void;
+  updateCategory: (categoryId: string) => void;
   updateInStock: (inStock: boolean) => void;
   updateMinPrice: (minPrice: number) => void;
   updateMaxPrice: (maxPrice: number) => void;
@@ -34,9 +35,63 @@ export default function FiltersSection({
   updateMaxPrice,
   resetFiltersExceptQuery,
 }: FiltersSectionProps) {
-  const data = categoryAtom.value;
+  const [categories, setCategories] = useState<CategoryWithChildren[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
   const [localMinPrice, setLocalMinPrice] = useState(filters.minPrice || 0);
   const [localMaxPrice, setLocalMaxPrice] = useState(filters.maxPrice || 0);
+
+  // Initialize expanded categories based on selected category/subcategory
+  useEffect(() => {
+    if (filters.category && categories.length > 0) {
+      const newExpanded = new Set<string>();
+      
+      // Check if the selected category is a subcategory
+      for (const category of categories) {
+        if (category.subcategories) {
+          const hasSelectedSubcategory = category.subcategories.some(
+            sub => sub.id === filters.category
+          );
+          if (hasSelectedSubcategory) {
+            newExpanded.add(category.id);
+            break;
+          }
+        }
+      }
+      
+      if (newExpanded.size > 0) {
+        setExpandedCategories(newExpanded);
+      }
+    }
+  }, [filters.category, categories]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const result = await categoryService.getCategoriesWithChildren({
+          status: "active",
+          perPage: 50,
+        });
+        setCategories(result.data);
+      } catch (error) {
+        console.error("Failed to load categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const toggleCategory = (categoryId: string) => {
+    const newExpanded = new Set(expandedCategories);
+    if (newExpanded.has(categoryId)) {
+      newExpanded.delete(categoryId);
+    } else {
+      newExpanded.add(categoryId);
+    }
+    setExpandedCategories(newExpanded);
+  };
 
   const debouncedUpdateMinPrice = debounce((newMinPrice: number) => {
     updateMinPrice(newMinPrice);
@@ -89,24 +144,78 @@ export default function FiltersSection({
               className="w-full uppercase text-sm md:text-xs xl:text-sm text-primary font-bold">
               {trans("Product Categories")}
             </AccordionTrigger>
-            <AccordionContent className="flex flex-col items-start gap-3">
-              {data &&
-                data.map(category => (
-                  <li
-                    onClick={() => updateCategory(category.id)}
-                    key={category.id}
-                    className="flex items-center gap-2 flex-wrap">
-                    <Checkbox
-                      id={category.slug}
-                      className="border-darkGray w-4 h-4 md:w-3 md:h-3 2xl:w-4 2xl:h-4
-                       data-[state=checked]:bg-blue data-[state=checked]:border-blue"
-                      checked={category.id === filters.category}
-                    />
-                    <p className="text-sm md:text-xs 2xl:text-sm font-medium text-primary cursor-pointer">
-                      {translateText(category.name)}
-                    </p>
-                  </li>
-                ))}
+            <AccordionContent className="flex flex-col items-start gap-2">
+              {loading ? (
+                <p className="text-sm text-gray-500">{trans("Loading...")}</p>
+              ) : (
+                categories.map(category => {
+                  const hasSubcategories = category.subcategories && category.subcategories.length > 0;
+                  const isExpanded = expandedCategories.has(category.id);
+                  const isSelected = category.id === filters.category;
+                  
+                  // Check if any subcategory is selected
+                  const hasSelectedSubcategory = hasSubcategories && category.subcategories.some(
+                    sub => sub.id === filters.category
+                  );
+                  
+                  return (
+                    <div key={category.id} className="w-full">
+                      <div className="flex items-center gap-2 w-full">
+                        {hasSubcategories ? (
+                          <button
+                            onClick={() => toggleCategory(category.id)}
+                            className="p-0 hover:bg-transparent flex-shrink-0">
+                            {isExpanded ? (
+                              <ChevronDownIcon className="w-4 h-4 text-gray-600" />
+                            ) : (
+                              <ChevronRightIcon className="w-4 h-4 text-gray-600" />
+                            )}
+                          </button>
+                        ) : (
+                          <div className="w-4" />
+                        )}
+                        <div
+                          onClick={() => updateCategory(category.id)}
+                          className={cn(
+                            "flex items-center gap-2 flex-1 cursor-pointer py-1 px-2 rounded transition-colors",
+                            isSelected 
+                              ? "bg-blue/10 text-blue font-semibold" 
+                              : "hover:bg-gray-100 text-primary"
+                          )}>
+                          <p className="text-sm md:text-xs 2xl:text-sm">
+                            {category.name}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Subcategories */}
+                      {hasSubcategories && isExpanded && (
+                        <div className="ml-6 mt-1 flex flex-col gap-1 border-l-2 border-borderLight pl-3">
+                          {category.subcategories.map(subcategory => {
+                            const isSubSelected = subcategory.id === filters.category;
+                            
+                            return (
+                              <div
+                                key={subcategory.id}
+                                onClick={() => updateCategory(subcategory.id)}
+                                className={cn(
+                                  "cursor-pointer py-1 px-2 rounded transition-colors",
+                                  isSubSelected
+                                    ? "bg-blue/10 text-blue font-semibold"
+                                    : "hover:bg-gray-100 text-gray-700"
+                                )}>
+                                <p className="text-sm md:text-xs 2xl:text-sm">
+                                  {subcategory.name}
+                                </p>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              )}
             </AccordionContent>
           </AccordionItem>
         </div>

@@ -9,15 +9,19 @@ export async function getProducts(query: string) {
   const search = params.get('q') || undefined;
   const category = params.get('category') || undefined;
   const inStock = params.get('inStock');
+  const minPrice = params.get('minPrice') ? parseFloat(params.get('minPrice')!) : undefined;
+  const maxPrice = params.get('maxPrice') ? parseFloat(params.get('maxPrice')!) : undefined;
   
   try {
-    // Fetch from Supabase
+    // Fetch from Supabase - exclude inactive products on user side
     const { data: products, total } = await productService.getProducts({
       search,
       category,
-      status: 'active',
+      excludeInactive: true, // Only show active and out_of_stock products
       page,
       perPage,
+      minPrice,
+      maxPrice,
     });
 
     // Transform Supabase data to match expected format
@@ -31,7 +35,7 @@ export async function getProducts(query: string) {
       price: product.price,
       salePrice: product.sale_price,
       discount: product.discount || 0,
-      inStock: product.stock > 0,
+      inStock: product.status === 'active' && product.stock > 0,
       stock: product.stock,
       description: product.description || '',
       shortDescription: product.short_description || '',

@@ -57,7 +57,7 @@ export default function MobileSidebarSheet() {
             <Separator className="my-1" />
             <div className="flex items-center gap-1" onClick={handleClose}>
               <Link
-                href={URLS.shop.collections}
+                href={`${URLS.shop.products}?page=1`}
                 className="text-[14px] font-semibold text-primary">
                 {trans("shop")}
               </Link>

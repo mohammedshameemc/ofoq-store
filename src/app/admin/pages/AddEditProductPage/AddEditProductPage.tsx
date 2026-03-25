@@ -684,9 +684,7 @@ export default function AddEditProductPage({ params }: Props) {
                     onChange={e => setStatus(e.target.value)}
                     className="w-full px-4 py-2.5 border border-borderLight rounded-lg focus:ring-2 focus:ring-[#2b38d1] focus:border-transparent outline-none bg-white">
                     <option value="active">Active</option>
-                    <option value="draft">Draft</option>
                     <option value="inactive">Inactive</option>
-                    <option value="low_stock">Low Stock</option>
                     <option value="out_of_stock">Out of Stock</option>
                   </select>
                 </div>

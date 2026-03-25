@@ -30,7 +30,7 @@ export interface Database {
           image_url: string | null;
           featured: boolean;
           specifications: { key: string; value: string; sort_order: number }[] | null;
-          status: "active" | "inactive" | "out_of_stock" | "draft" | "low_stock";
+          status: "active" | "inactive" | "out_of_stock";
           created_at: string;
           updated_at: string;
         };

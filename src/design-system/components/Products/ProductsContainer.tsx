@@ -43,22 +43,10 @@ const ProductsContainer: React.FC<ProductsContainerProps> = ({
         products.sort((a, b) => b.price - a.price);
       }
 
-      // Apply category filter if present
-      const filtered = filters.category
-        ? products.filter(product => product.category.id === filters.category)
-        : products;
-
-      setFilteredProducts(filtered);
+      // Apply category filter if present (already filtered by Supabase)
+      setFilteredProducts(products);
     }
   }, [data, filters]);
-
-  if (isLoading) {
-    return (
-      <div className="w-full h-full flex items-center justify-center pt-16">
-        <LuLoader2 className="w-10 h-10 animate-spin text-blue" />
-      </div>
-    );
-  }
 
   if (error) {
     return (
@@ -73,31 +61,27 @@ const ProductsContainer: React.FC<ProductsContainerProps> = ({
   return (
     <div>
       <Helmet title={title} />
-      <div className="w-full bg-white max-w-[1400px] mx-auto py-4 px-4">
-        <Breadcrumbs title="Shop" />
-      </div>
       <div className="w-full h-full bg-lightGray">
         <div className="max-w-[1400px] mx-auto py-10 px-4 flex flex-col items-center justify-center gap-1">
           {additionalTitle && (
             <h1 className="text-primary text-[28px] font-semibold text-center uppercase">
-              {data?.paginationInfo.total} {trans("Results")}{" "}
+              {data?.paginationInfo?.total || 0} {trans("Results")}{" "}
               {filters.q && `For "${filters.q}"`}
             </h1>
           )}
-          {data?.paginationInfo && (
-            <ProductsList
-              products={filteredProducts}
-              updateCategory={updateCategory}
-              updateInStock={updateInStock}
-              updateMaxPrice={updateMaxPrice}
-              updateMinPrice={updateMinPrice}
-              updateSortOptions={updateSortOptions}
-              filters={filters}
-              paginationInfo={data.paginationInfo}
-              resetFiltersExceptQuery={resetFiltersExceptQuery}
-              updatePageNumber={updatePageNumber}
-            />
-          )}
+          <ProductsList
+            products={filteredProducts}
+            updateCategory={updateCategory}
+            updateInStock={updateInStock}
+            updateMaxPrice={updateMaxPrice}
+            updateMinPrice={updateMinPrice}
+            updateSortOptions={updateSortOptions}
+            filters={filters}
+            paginationInfo={data?.paginationInfo}
+            resetFiltersExceptQuery={resetFiltersExceptQuery}
+            updatePageNumber={updatePageNumber}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </div>
