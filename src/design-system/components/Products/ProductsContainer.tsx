@@ -74,7 +74,7 @@ const ProductsContainer: React.FC<ProductsContainerProps> = ({
     <div>
       <Helmet title={title} />
       <div className="w-full bg-white max-w-[1400px] mx-auto py-4 px-4">
-        <Breadcrumbs title={title.toLowerCase()} />
+        <Breadcrumbs title="Shop" />
       </div>
       <div className="w-full h-full bg-lightGray">
         <div className="max-w-[1400px] mx-auto py-10 px-4 flex flex-col items-center justify-center gap-1">

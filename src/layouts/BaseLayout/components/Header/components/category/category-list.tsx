@@ -20,7 +20,7 @@ export default function CategoryLists() {
   const [isHovered, setIsHovered] = useState(false);
   const [categories, setCategories] = useState<CategoryWithChildren[]>([]);
   const [loading, setLoading] = useState(false);
-  const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [showSubcategories, setShowSubcategories] = useState(false);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function CategoryLists() {
     setHoveredCategory(null);
   };
 
-  const handleCategoryHover = (categoryId: number) => {
+  const handleCategoryHover = (categoryId: string) => {
     setHoveredCategory(categoryId);
     const category = categories.find(c => c.id === categoryId);
     if (category && category.subcategories && category.subcategories.length > 0) {

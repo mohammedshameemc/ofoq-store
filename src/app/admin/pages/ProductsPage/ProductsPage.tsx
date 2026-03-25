@@ -21,6 +21,8 @@ interface ProductRow {
   status: string;
   image_url: string | null;
   categories: { name: string } | null;
+  subcategory_id: string | null;
+  subcategories: { name: string } | null;
   featured: boolean;
 }
 
@@ -422,6 +424,9 @@ export default function ProductsPage() {
                     <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                       Category
                     </th>
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Subcategory
+                    </th>
                     <th className="text-right px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                       Price
                     </th>
@@ -485,6 +490,11 @@ export default function ProductsPage() {
                         <td className="px-5 py-3.5">
                           <span className="text-sm text-gray-600">
                             {product.categories?.name || "—"}
+                          </span>
+                        </td>
+                        <td className="px-5 py-3.5">
+                          <span className="text-sm text-gray-600">
+                            {product.subcategories?.name || "—"}
                           </span>
                         </td>
                         <td className="px-5 py-3.5 text-right">

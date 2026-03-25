@@ -61,7 +61,7 @@ class ProductService {
 
     let query = supabase
       .from('products')
-      .select('*, categories!products_category_id_fkey(name)', { count: 'exact' });
+      .select('*, categories!products_category_id_fkey(name), subcategories:categories!products_subcategory_id_fkey(name)', { count: 'exact' });
 
     if (filters?.search) {
       query = query.ilike('name', `%${filters.search}%`);

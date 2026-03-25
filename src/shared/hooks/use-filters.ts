@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 export interface Filters {
   sort: string;
   page: number;
-  category: number | null;
+  category: string | null;
   minPrice: number | null;
   maxPrice: number | null;
   inStock: boolean | null;
@@ -48,7 +48,7 @@ export function useFilters() {
     updateURLParams(updatedFilters);
   };
 
-  const updateCategory = (newCategory: number | null) => {
+  const updateCategory = (newCategory: string | null) => {
     if (newCategory === filters.category) {
       const updatedFilters = { ...filters, category: null };
       setFilters(updatedFilters);
@@ -130,7 +130,7 @@ export function useFilters() {
     const inStock = queryString.get("inStock") || null;
 
     const initialURLFilters: Omit<Filters, "sort"> = {
-      category: category ? Number(category) : null,
+      category: category || null,
       page: Number(page),
       minPrice: minPrice ? Number(minPrice) : null,
       maxPrice: maxPrice ? Number(maxPrice) : null,

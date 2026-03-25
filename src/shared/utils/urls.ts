@@ -31,18 +31,6 @@ const URLS = {
       `/search?type=${type}&${query}`,
   },
   faq: "/faq",
-  auth: {
-    root: "/account",
-    addressBook: "/account/address-book",
-    orders: "/account/orders",
-    login: "/account/login",
-    forgetPassword: "/account/forget-password",
-    resetPassword: "/account/rest-password",
-    register: "/account/register",
-    verifyForgetPassword: "/account/forget-password/verify",
-    logout: "/account/logout",
-    addresses: "/account/addresses",
-  },
   admin: {
     root: "/admin",
     login: "/admin/login",
