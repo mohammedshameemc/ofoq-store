@@ -1,7 +1,7 @@
-export const formatPrice = (price: number) => {
+export const formatPrice = (price = 0, currency = "QAR") => {
   return new Intl.NumberFormat("en-QA", {
     style: "currency",
-    currency: "QAR",
+    currency: currency,
     minimumFractionDigits: 2,
   }).format(price);
 };

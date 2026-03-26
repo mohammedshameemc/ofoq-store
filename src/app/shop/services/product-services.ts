@@ -65,7 +65,7 @@ export async function getProduct(id: string | number) {
       inCart: false,
       inWishlist: false,
       inCompare: false,
-      relatedProducts: [], // Will be populated separately if needed
+      relatedProducts: [] as any[], // Will be populated separately if needed
     };
 
     // Fetch related products from same category

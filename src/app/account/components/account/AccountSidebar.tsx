@@ -19,7 +19,7 @@ export default function AccountSidebar() {
   const accountSidebarRoutes = [
     {
       label: trans("dashboard"),
-      path: URLS.auth.root,
+      path: URLS.home, // URLS.auth.root - Auth module removed
       icon: <RxDashboard className="w-5 h-5" />,
     },
     {
@@ -29,7 +29,7 @@ export default function AccountSidebar() {
     },
     {
       label: trans("Address"),
-      path: URLS.auth.addresses,
+      path: URLS.home, // URLS.auth.addresses - Auth module removed
       icon: <IoLocationOutline className="w-5 h-5" />,
       data: (addresses && addresses.length) || 0,
     },

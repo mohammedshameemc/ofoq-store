@@ -20,7 +20,7 @@ export default function CategoriesRow() {
       try {
         const parentCategories = await categoryService.getParentCategories();
         // Filter only active categories
-        const activeCategories = parentCategories.filter((cat: any) => cat.status === 'active');
+        const activeCategories = parentCategories.filter((cat: any) => cat.status === 'active') as Category[];
         setCategories(activeCategories);
 
         // Fetch product counts for each category
@@ -95,7 +95,7 @@ export default function CategoriesRow() {
 
           return (
             <div key={category.id} className="min-w-[150px]">
-              <CategoryCard category={transformedCategory} />
+              <CategoryCard category={transformedCategory as any} />
             </div>
           );
         })}

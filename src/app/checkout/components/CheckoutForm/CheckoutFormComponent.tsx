@@ -90,7 +90,7 @@ export default function CheckoutFormComponent({
                 </AccordionTrigger>
                 <AccordionContent>
                   <Link
-                    href={URLS.auth.logout}
+                    href={URLS.home}
                     className="text-sm text-lightAqua underline">
                     {trans("logout")}
                   </Link>

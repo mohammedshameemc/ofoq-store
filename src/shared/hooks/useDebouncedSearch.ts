@@ -4,7 +4,7 @@ import { useProduct } from "shared/hooks/use-products";
 
 type UseDebouncedSearchProps = {
   value?: string;
-  category?: number | null;
+  category?: string | null;
 };
 
 type UseDebouncedSearchResult = {

@@ -13,7 +13,7 @@ import SkeletonSearchCard from "../SkeletonLoading/skeleton-search-card";
 
 type SearchResultProps = {
   value?: string;
-  category?: number | null;
+  category?: string | null;
   OnClose?: () => void;
 };
 

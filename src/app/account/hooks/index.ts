@@ -19,11 +19,12 @@ import user from "../user";
 
 const goBack = () => {
   setTimeout(() => {
-    if (!Object.values(URLS.auth).includes(router.getPreviousRoute())) {
-      navigateBack();
-    } else {
-      navigateTo(URLS.home);
-    }
+    // if (!Object.values(URLS.auth).includes(router.getPreviousRoute())) {
+    //   navigateBack();
+    // } else {
+    //   navigateTo(URLS.home);
+    // }
+    navigateTo(URLS.home); // Auth module removed
   }, 0);
 };
 
@@ -115,7 +116,7 @@ export function useForgetPassword() {
         });
 
         setTimeout(() => {
-          navigateTo(URLS.auth.verifyForgetPassword);
+          navigateTo(URLS.home); // URLS.auth.verifyForgetPassword - Auth module removed
         }, 100);
       })
       .catch(() => {

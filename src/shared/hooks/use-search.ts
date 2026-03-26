@@ -5,11 +5,11 @@ import URLS from "shared/utils/urls";
 type UseSearchResult = {
   value: string;
   category: string;
-  categoryId: number | null;
+  categoryId: string | null;
   storeInputValue: (e: ChangeEvent<HTMLInputElement>) => void;
   selectCategory: (
     selectedCategory: string,
-    selectedCategoryId: number | null,
+    selectedCategoryId: string | null,
   ) => void;
   OnClose: () => void;
   handleKeyDown: (
@@ -22,8 +22,8 @@ type UseSearchResult = {
 export const useSearch = (): UseSearchResult => {
   const [value, setValue] = useState("");
   const [category, setCategory] = useState("");
-  const [categoryId, setCategoryId] = useState<number | null>(null);
-  const searchValueMap = useRef<Map<number | null, string>>(new Map());
+  const [categoryId, setCategoryId] = useState<string | null>(null);
+  const searchValueMap = useRef<Map<string | null, string>>(new Map());
   const params = queryString.toQueryString({ q: value, category: categoryId });
 
   const storeInputValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ export const useSearch = (): UseSearchResult => {
 
   const selectCategory = (
     selectedCategory: string,
-    selectedCategoryId: number | null,
+    selectedCategoryId: string | null,
   ) => {
     if (selectedCategory === "all") {
       setCategoryId(null);

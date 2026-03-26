@@ -24,6 +24,12 @@ const URLS = {
     viewRoute: "/blog/:id/:slug",
     view: (post: any) => `/blog/${post.id}/${post.slug}`,
   },
+  auth: {
+    root: "/account",
+    login: "/login",
+    addresses: "/account/addresses",
+    resetPassword: "/reset-password",
+  },
 
   searchRoute: {
     root: "/search",
