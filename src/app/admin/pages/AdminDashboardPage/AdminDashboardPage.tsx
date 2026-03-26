@@ -121,7 +121,7 @@ export default function AdminDashboardPage() {
             <button
               key={index}
               onClick={() => navigateTo(stat.link)}
-              className="bg-white rounded-xl shadow-lg shadow-gray-200/60 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all text-left border border-gray-100">
+              className="bg-white rounded-xl shadow-lg shadow-gray-200/60 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all text-left border border-borderLight">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <p className="text-sm font-medium text-gray-500">
@@ -143,7 +143,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-white rounded-xl shadow-xl overflow-hidden mt-6 mb-6">
+        <div className="bg-white rounded-xl shadow-lg shadow-gray-200/60 border border-borderLight overflow-hidden mt-6 mb-6">
           <div className="bg-[#2b38d1] px-6 py-4">
             <h2 className="text-base font-semibold text-white">
               Quick Actions
@@ -153,7 +153,7 @@ export default function AdminDashboardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <button
                 onClick={() => navigateTo(URLS.admin.addProduct)}
-                className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-[#2b38d1] hover:bg-[#2b38d1]/5 transition-colors text-left">
+                className="flex items-center gap-3 p-4 border border-borderLight rounded-xl bg-white shadow-sm hover:shadow-md hover:border-[#2b38d1] hover:bg-[#2b38d1]/5 transition-all text-left">
                 <div className="p-2 bg-blue-100 text-blue-600 rounded-lg">
                   <BiPackage className="h-5 w-5" />
                 </div>
@@ -168,7 +168,7 @@ export default function AdminDashboardPage() {
               </button>
               <button
                 onClick={() => navigateTo(URLS.admin.addCategory)}
-                className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-[#2b38d1] hover:bg-[#2b38d1]/5 transition-colors text-left">
+                className="flex items-center gap-3 p-4 border border-borderLight rounded-xl bg-white shadow-sm hover:shadow-md hover:border-[#2b38d1] hover:bg-[#2b38d1]/5 transition-all text-left">
                 <div className="p-2 bg-purple-100 text-purple-600 rounded-lg">
                   <BiCategory className="h-5 w-5" />
                 </div>
@@ -181,7 +181,7 @@ export default function AdminDashboardPage() {
               </button>
               <button
                 onClick={() => navigateTo(URLS.admin.topProducts)}
-                className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-[#2b38d1] hover:bg-[#2b38d1]/5 transition-colors text-left">
+                className="flex items-center gap-3 p-4 border border-borderLight rounded-xl bg-white shadow-sm hover:shadow-md hover:border-[#2b38d1] hover:bg-[#2b38d1]/5 transition-all text-left">
                 <div className="p-2 bg-amber-100 text-amber-600 rounded-lg">
                   <AiOutlineStar className="h-5 w-5" />
                 </div>
@@ -196,7 +196,7 @@ export default function AdminDashboardPage() {
               </button>
               <button
                 onClick={() => navigateTo(URLS.admin.topCategories)}
-                className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-[#2b38d1] hover:bg-[#2b38d1]/5 transition-colors text-left">
+                className="flex items-center gap-3 p-4 border border-borderLight rounded-xl bg-white shadow-sm hover:shadow-md hover:border-[#2b38d1] hover:bg-[#2b38d1]/5 transition-all text-left">
                 <div className="p-2 bg-green-100 text-green-600 rounded-lg">
                   <AiOutlineAppstore className="h-5 w-5" />
                 </div>
@@ -220,7 +220,7 @@ export default function AdminDashboardPage() {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Recently Added Products */}
-            <div className="lg:col-span-2 bg-white rounded-xl shadow-xl ">
+            <div className="lg:col-span-2 bg-white rounded-xl shadow-lg shadow-gray-200/60 border border-borderLight overflow-hidden">
               <div className="px-5 py-4 bg-[#2b38d1] rounded-t-xl flex items-center justify-between">
                 <h2 className="text-base font-semibold text-white">
                   Recent Products
@@ -235,7 +235,7 @@ export default function AdminDashboardPage() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gray-50/80 border-b border-gray-200">
+                    <tr className="bg-gray-50/80 border-b border-borderLight">
                       <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                         Product
                       </th>
@@ -258,7 +258,7 @@ export default function AdminDashboardPage() {
                     ) : recentProducts.map((product, idx) => (
                       <tr
                         key={product.id}
-                        className={`border-b border-gray-100 transition-colors ${idx % 2 === 1 ? "bg-gray-50/40" : "bg-white"} hover:bg-[#2b38d1]/[0.04]`}>
+                        className={`border-b border-borderLight transition-colors ${idx % 2 === 1 ? "bg-gray-50/40" : "bg-white"} hover:bg-[#2b38d1]/[0.04]`}>
                         <td className="px-5 py-3.5">
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0">
@@ -308,7 +308,7 @@ export default function AdminDashboardPage() {
             {/* Right sidebar */}
             <div className="space-y-6">
               {/* Recent Categories */}
-              <div className="bg-white rounded-xl shadow-xl">
+              <div className="bg-white rounded-xl shadow-lg shadow-gray-200/60 border border-borderLight overflow-hidden">
                 <div className="px-6 py-4 bg-[#2b38d1] rounded-t-xl flex items-center justify-between">
                   <h2 className="text-base font-semibold text-white">
                     Recent Categories
