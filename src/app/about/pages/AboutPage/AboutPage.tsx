@@ -1,6 +1,6 @@
 import { trans } from "@mongez/localization";
 import React from "react";
-
+import Helmet from "@mongez/react-helmet";
 import Breadcrumbs from "design-system/components/Breadcrumbs";
 import { Separator } from "design-system/components/ui/separator";
 import mainAboutImage from "shared/assets/images/img_about.webp";
@@ -11,6 +11,7 @@ import about3Image from "shared/assets/images/img_about_3.webp";
 function _AboutPage() {
   return (
     <div className="w-full max-w-[1440px] mx-auto px-4 py-6">
+      <Helmet title="About Us" />
       <Breadcrumbs title="About" />
       <div className="flex items-center flex-col gap-10 justify-center my-8 overflow-hidden">
         <div className="w-full max-w-[600px]">

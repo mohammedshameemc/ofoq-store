@@ -1,5 +1,5 @@
 import React from "react";
-
+import Helmet from "@mongez/react-helmet";
 import ContactForm from "app/contact-us/components/ContactForm";
 import ContactInfo from "app/contact-us/components/ContactInfo";
 import Breadcrumbs from "design-system/components/Breadcrumbs";
@@ -7,6 +7,7 @@ import Breadcrumbs from "design-system/components/Breadcrumbs";
 function _ContactUsPage() {
   return (
     <div className="w-full max-w-[1440px] mx-auto px-4 py-6 ">
+      <Helmet title="Contact Us" />
       <Breadcrumbs title="contact us" />
       <div className="flex flex-col gap-14 my-5">
         <iframe

@@ -34,16 +34,6 @@ export default function ProductCard({ product, grid }: TProduct) {
           <span className="text-white text-xs font-semibold">{discount}%</span>
         </div>
       )}
-      <div className="absolute right-3 md:right-5 top-3 md:top-5 z-20 opacity-100 xl:opacity-0 group-hover:opacity-100 transition-all duration-500">
-        <Link
-          href={URLS.shop.viewProduct(product.id)}
-          className="group/show size-9 flex items-center justify-center rounded-full shadow bg-white hover:bg-blue transition-all duration-300">
-          <FaRegEye className="size-4 group-hover/show:text-white transition-all duration-300" />
-          <p className="inline-block pointer-events-none absolute bg-primary text-white right-11 text-xs px-2 py-1 rounded-sm w-max opacity-0 group-hover/show:opacity-100 translate-x-2 group-hover/show:translate-x-0 transition-all duration-500 after:content-[''] after:-right-2 after:top-1/2 after:-translate-y-1/2 after:size-2 after:bg-primary after:absolute after:clip-triangle after:rotate-90">
-            {trans("Quick View")}
-          </p>
-        </Link>
-      </div>
 
       {/* Image Container */}
       <div className="relative mx-auto w-full flex items-center justify-center mt-10">

@@ -16,7 +16,7 @@ import { routerConfigurations } from "./router-configurations.js";
 
 // @mongez/react-helmet configurations
 setHelmetConfigurations({
-  appendAppName: true,
+  appendAppName: false,
   appNameSeparator: " | ",
   translatable: true,
   translateAppName: true,

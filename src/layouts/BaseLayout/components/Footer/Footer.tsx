@@ -141,7 +141,7 @@ export default function Footer() {
             <SubscribeToNewsletter />
 
             <p className="text-gray text-sm leading-8 md:max-w-80 text-start">
-              {trans("subscribeForUminex")}
+              {trans("subscribeForOfoq")}
             </p>
           </div>
         </div>
