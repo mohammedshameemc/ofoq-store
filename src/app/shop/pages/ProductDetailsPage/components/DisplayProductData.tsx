@@ -132,7 +132,6 @@ export default function DisplayProductData({
         onClose={() => setIsShareModalOpen(false)}
         productName={translateText(product.name)}
         productUrl={productUrl}
-        phoneNumber={phoneNumber}
       />
       {/* <Separator />
       <div className="flex flex-col items-start gap-3">

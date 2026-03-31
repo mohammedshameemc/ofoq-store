@@ -22,7 +22,6 @@ interface ShareModalProps {
   onClose: () => void;
   productName: string;
   productUrl: string;
-  phoneNumber?: string;
 }
 
 export default function ShareModal({
@@ -30,30 +29,26 @@ export default function ShareModal({
   onClose,
   productName,
   productUrl,
-  phoneNumber = "919562321211",
 }: ShareModalProps) {
   const [copied, setCopied] = useState(false);
 
   const handleWhatsAppShare = () => {
-    const message = `Check out this product:\n\n${productName}\n\n${productUrl}`;
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const message = `Check out this ${productName} on Ofoq trading ${productUrl}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
   };
 
   const handleFacebookShare = () => {
-    // Facebook will automatically fetch Open Graph tags from the URL
-    // and display product image, title, and description
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}&quote=${encodeURIComponent(`Check out this product: ${productName}`)}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}&quote=${encodeURIComponent(`Check out this ${productName} on Ofoq trading`)}`;
     window.open(facebookUrl, "_blank", "width=600,height=400");
   };
 
   const handleInstagramShare = () => {
-    // Instagram doesn't have a direct web share API
-    // Copy link and show instruction to paste in Instagram
-    navigator.clipboard.writeText(productUrl);
+    const message = `Check out this ${productName} on Ofoq trading ${productUrl}`;
+    navigator.clipboard.writeText(message);
     alert(
       trans(
-        "Link copied! Open Instagram app and paste the link in your story or post.",
+        "Product details copied! Open Instagram app and paste in your story or post.",
       ),
     );
   };
