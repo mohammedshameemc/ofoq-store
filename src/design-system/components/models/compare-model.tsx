@@ -127,14 +127,32 @@ export default function CompareModel() {
                 <TableCell
                   className="table-cell
                   text-base font-normal text-primary">
-                  {trans("Type")}
+                  {trans("Specifications")}
                 </TableCell>
                 {compareProducts.map((product: Product) => (
                   <TableCell
                     key={product.id}
                     className="table-cell 
                     text-center py-8 text-gray">
-                    {product.type}
+                    {product.specifications && product.specifications.length > 0 ? (
+                      <ul className="text-left space-y-1 text-sm">
+                        {product.specifications.map((spec, index) => (
+                          <li key={index}>
+                            <span className="font-semibold text-gray-800">
+                              {spec.label || `Spec ${index + 1}`}
+                            </span>
+                            <span className="mx-1">-</span>
+                            <span className="text-primary font-medium">
+                              {spec.value}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <span className="text-gray-400">
+                        {trans("No Specifications")}
+                      </span>
+                    )}
                   </TableCell>
                 ))}
               </TableRow>

@@ -1,13 +1,10 @@
 import { trans } from "@mongez/localization";
 import Helmet from "@mongez/react-helmet";
-import React, { useEffect, useState } from "react";
-import { LuLoader2 } from "react-icons/lu";
+import React from "react";
 
-import Breadcrumbs from "design-system/components/Breadcrumbs";
 import ProductsList from "design-system/components/Products/ProductsList";
 import { useFilters } from "shared/hooks/use-filters";
 import { useProduct } from "shared/hooks/use-products";
-import { Product } from "shared/utils/types";
 
 interface ProductsContainerProps {
   title: string;
@@ -18,8 +15,6 @@ const ProductsContainer: React.FC<ProductsContainerProps> = ({
   title,
   additionalTitle,
 }) => {
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-
   const {
     filters,
     params,
@@ -28,25 +23,12 @@ const ProductsContainer: React.FC<ProductsContainerProps> = ({
     updateMaxPrice,
     updateSortOptions,
     updateInStock,
+    updateTags,
     resetFiltersExceptQuery,
     updatePageNumber,
   } = useFilters();
 
   const { data, isLoading, error } = useProduct(params);
-
-  useEffect(() => {
-    if (data?.products) {
-      const products = [...data.products];
-      if (filters.sort === "price_asc") {
-        products.sort((a, b) => a.price - b.price);
-      } else if (filters.sort === "price_dsc") {
-        products.sort((a, b) => b.price - a.price);
-      }
-
-      // Apply category filter if present (already filtered by Supabase)
-      setFilteredProducts(products);
-    }
-  }, [data, filters]);
 
   if (error) {
     return (
@@ -70,12 +52,13 @@ const ProductsContainer: React.FC<ProductsContainerProps> = ({
             </h1>
           )}
           <ProductsList
-            products={filteredProducts}
+            products={data?.products || []}
             updateCategory={updateCategory}
             updateInStock={updateInStock}
             updateMaxPrice={updateMaxPrice}
             updateMinPrice={updateMinPrice}
             updateSortOptions={updateSortOptions}
+            updateTags={updateTags}
             filters={filters}
             paginationInfo={data?.paginationInfo}
             resetFiltersExceptQuery={resetFiltersExceptQuery}

@@ -29,6 +29,7 @@ interface ProductsListProps {
   updateMinPrice: (minPrice: number) => void;
   updateMaxPrice: (maxPrice: number) => void;
   updateSortOptions: (sort: string) => void;
+  updateTags: (tags: string[]) => void;
   updatePageNumber: (page: number) => void;
   resetFiltersExceptQuery: () => void;
   filters: Filters;
@@ -44,6 +45,7 @@ export default function ProductsList({
   updateMinPrice,
   updateMaxPrice,
   updateSortOptions,
+  updateTags,
   resetFiltersExceptQuery,
   updatePageNumber,
   paginationInfo,
@@ -92,6 +94,7 @@ export default function ProductsList({
             updateMaxPrice={updateMaxPrice}
             updateMinPrice={updateMinPrice}
             updateInStock={updateInStock}
+            updateTags={updateTags}
             resetFiltersExceptQuery={resetFiltersExceptQuery}
           />
         </div>
@@ -138,6 +141,7 @@ export default function ProductsList({
               updateInStock={updateInStock}
               updateMaxPrice={updateMaxPrice}
               updateMinPrice={updateMinPrice}
+              updateTags={updateTags}
               paginationInfo={paginationInfo}
               updateSortOptions={updateSortOptions}
             />

@@ -17,7 +17,7 @@ export async function getProduct(id: string | number) {
       price: productData.price,
       salePrice: productData.sale_price,
       discount: productData.discount || 0,
-      inStock: productData.status === 'active' && productData.stock > 0,
+      inStock: productData.status === 'active',
       stock: productData.stock,
       description: [
         { localeCode: 'en', value: productData.description || '' },
@@ -91,7 +91,7 @@ export async function getProduct(id: string | number) {
             price: product.price,
             salePrice: product.sale_price,
             discount: product.discount || 0,
-            inStock: product.status === 'active' && product.stock > 0,
+            inStock: product.status === 'active',
             stock: product.stock,
             images: [
               { id: '1', url: product.image_url || '/placeholder.png', alt: product.name },

@@ -4,14 +4,21 @@ import { productService } from "services/supabase/product.service";
 export async function getProducts(query: string) {
   // Parse query string to extract filters
   const params = new URLSearchParams(query);
-  const page = parseInt(params.get('page') || '1');
-  const perPage = parseInt(params.get('limit') || '15');
-  const search = params.get('q') || undefined;
-  const category = params.get('category') || undefined;
-  const inStock = params.get('inStock');
-  const minPrice = params.get('minPrice') ? parseFloat(params.get('minPrice')!) : undefined;
-  const maxPrice = params.get('maxPrice') ? parseFloat(params.get('maxPrice')!) : undefined;
-  
+  const page = parseInt(params.get("page") || "1");
+  const perPage = parseInt(params.get("limit") || "15");
+  const search = params.get("q") || undefined;
+  const category = params.get("category") || undefined;
+  const inStock = params.get("inStock");
+  const sort = params.get("sort") || "none";
+  const minPrice = params.get("minPrice")
+    ? parseFloat(params.get("minPrice")!)
+    : undefined;
+  const maxPrice = params.get("maxPrice")
+    ? parseFloat(params.get("maxPrice")!)
+    : undefined;
+  const tagsParam = params.get("tags");
+  const tags = tagsParam ? tagsParam.split(",") : undefined;
+
   try {
     // Fetch from Supabase - exclude inactive products on user side
     const { data: products, total } = await productService.getProducts({
@@ -22,6 +29,8 @@ export async function getProducts(query: string) {
       perPage,
       minPrice,
       maxPrice,
+      tags,
+      sort,
     });
 
     // Transform Supabase data to match expected format
@@ -35,7 +44,7 @@ export async function getProducts(query: string) {
       price: product.price,
       salePrice: product.sale_price,
       discount: product.discount || 0,
-      inStock: product.status === 'active' && product.stock > 0,
+      inStock: product.status === 'active',
       stock: product.stock,
       description: product.description || '',
       shortDescription: product.short_description || '',

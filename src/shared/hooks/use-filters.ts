@@ -10,6 +10,7 @@ export interface Filters {
   maxPrice: number | null;
   inStock: boolean | null;
   q: string | null;
+  tags: string[] | null;
 }
 
 const initialFilters: Filters = {
@@ -20,6 +21,7 @@ const initialFilters: Filters = {
   maxPrice: null,
   inStock: null,
   q: null,
+  tags: null,
 };
 
 export function useFilters() {
@@ -27,12 +29,19 @@ export function useFilters() {
   const [params, setParams] = useState<string>("");
 
   const cleanFilters = (filters: Omit<Filters, "sort">) => {
-    const { ...restFilters } = filters;
-    return Object.fromEntries(
+    const { tags, ...restFilters } = filters;
+    const cleaned: any = Object.fromEntries(
       Object.entries(restFilters).filter(
         ([_, value]) => value !== null && value !== undefined && value !== "",
       ),
     );
+
+    // Handle tags array - convert to comma-separated string
+    if (tags && tags.length > 0) {
+      cleaned.tags = tags.join(",");
+    }
+
+    return cleaned;
   };
 
   const updateURLParams = useCallback((newFilters: Omit<Filters, "sort">) => {
@@ -107,6 +116,15 @@ export function useFilters() {
     setFilters(updatedFilters);
   };
 
+  const updateTags = (newTags: string[] | null) => {
+    const updatedFilters = {
+      ...filters,
+      tags: newTags && newTags.length > 0 ? newTags : null,
+    };
+    setFilters(updatedFilters);
+    updateURLParams(updatedFilters);
+  };
+
   const resetFiltersExceptQuery = () => {
     const updatedFilters: Omit<Filters, "sort"> = {
       ...initialFilters,
@@ -128,6 +146,8 @@ export function useFilters() {
     const maxPrice = queryString.get("maxPrice") || null;
     const q = queryString.get("q") || null;
     const inStock = queryString.get("inStock") || null;
+    const tagsParam = queryString.get("tags") || null;
+    const tags = tagsParam ? tagsParam.split(",") : null;
 
     const initialURLFilters: Omit<Filters, "sort"> = {
       category: category || null,
@@ -136,6 +156,7 @@ export function useFilters() {
       maxPrice: maxPrice ? Number(maxPrice) : null,
       q,
       inStock,
+      tags,
     };
 
     setFilters(currentFilters => ({
@@ -156,6 +177,7 @@ export function useFilters() {
     updateQuery,
     updateSortOptions,
     updateInStock,
+    updateTags,
     resetFiltersExceptQuery,
   };
 }

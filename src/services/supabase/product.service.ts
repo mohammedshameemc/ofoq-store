@@ -56,6 +56,8 @@ class ProductService {
     perPage?: number;
     minPrice?: number;
     maxPrice?: number;
+    tags?: string[];
+    sort?: string;
   }): Promise<{ data: any[]; total: number }> {
     const page = filters?.page ?? 1;
     const perPage = filters?.perPage ?? 10;
@@ -64,7 +66,7 @@ class ProductService {
 
     let query = supabase
       .from('products')
-      .select('*, categories!products_category_id_fkey(name), subcategories:categories!products_subcategory_id_fkey(name), product_images(id, image_url, sort_order)', { count: 'exact' });
+      .select('*, categories!products_category_id_fkey(name), subcategories:categories!products_subcategory_id_fkey(name), product_images(id, image_url, sort_order), product_tags(tag_id)', { count: 'exact' });
 
     if (filters?.search) {
       query = query.ilike('name', `%${filters.search}%`);
@@ -84,19 +86,27 @@ class ProductService {
       query = query.in('status', ['active', 'out_of_stock']);
     }
 
-    const { data, error, count } = await query
-      .order('created_at', { ascending: false });
+    // Apply sorting
+    if (filters?.sort === 'price_asc') {
+      query = query.order('price', { ascending: true });
+    } else if (filters?.sort === 'price_dsc') {
+      query = query.order('price', { ascending: false });
+    } else {
+      query = query.order('created_at', { ascending: false });
+    }
+
+    const { data, error, count } = await query;
 
     if (error) throw new Error(error.message);
 
     // Apply price filtering on the client side to handle sale_price vs price logic
     let filteredData = data ?? [];
-    
+
     if (filters?.minPrice !== undefined || filters?.maxPrice !== undefined) {
       filteredData = filteredData.filter((product: any) => {
         // Use sale_price if available, otherwise use price
         const effectivePrice = product.sale_price ?? product.price;
-        
+
         if (filters.minPrice !== undefined && effectivePrice < filters.minPrice) {
           return false;
         }
@@ -104,6 +114,15 @@ class ProductService {
           return false;
         }
         return true;
+      });
+    }
+
+    // Apply tags filtering
+    if (filters?.tags && filters.tags.length > 0) {
+      filteredData = filteredData.filter((product: any) => {
+        // Check if product has any of the selected tags
+        const productTagIds = product.product_tags?.map((pt: any) => pt.tag_id) || [];
+        return filters.tags!.some(tagId => productTagIds.includes(tagId));
       });
     }
 

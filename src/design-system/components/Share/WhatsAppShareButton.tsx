@@ -13,7 +13,7 @@ interface WhatsAppShareButtonProps {
 export default function WhatsAppShareButton({
   productName,
   productUrl,
-  phoneNumber = "919562321211",
+  phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "919562321211",
   className = "",
   variant = "default",
   size = "default",

@@ -17,12 +17,14 @@ import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 import { categoryService, CategoryWithChildren } from "services/supabase/category.service";
+import { tagService, Tag } from "services/supabase/tag.service";
 
 interface FiltersSectionProps {
   updateCategory: (categoryId: string) => void;
   updateInStock: (inStock: boolean) => void;
   updateMinPrice: (minPrice: number) => void;
   updateMaxPrice: (maxPrice: number) => void;
+  updateTags: (tags: string[]) => void;
   resetFiltersExceptQuery: () => void;
   filters: Filters;
 }
@@ -33,9 +35,11 @@ export default function FiltersSection({
   filters,
   updateMinPrice,
   updateMaxPrice,
+  updateTags,
   resetFiltersExceptQuery,
 }: FiltersSectionProps) {
   const [categories, setCategories] = useState<CategoryWithChildren[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
   const [localMinPrice, setLocalMinPrice] = useState(filters.minPrice || 0);
@@ -80,7 +84,17 @@ export default function FiltersSection({
       }
     };
 
+    const fetchTags = async () => {
+      try {
+        const result = await tagService.getTags();
+        setTags(result.data);
+      } catch (error) {
+        console.error("Failed to load tags:", error);
+      }
+    };
+
     fetchCategories();
+    fetchTags();
   }, []);
 
   const toggleCategory = (categoryId: string) => {
@@ -91,6 +105,14 @@ export default function FiltersSection({
       newExpanded.add(categoryId);
     }
     setExpandedCategories(newExpanded);
+  };
+
+  const toggleTag = (tagId: string) => {
+    const currentTags = filters.tags || [];
+    const newTags = currentTags.includes(tagId)
+      ? currentTags.filter(id => id !== tagId)
+      : [...currentTags, tagId];
+    updateTags(newTags);
   };
 
   const debouncedUpdateMinPrice = debounce((newMinPrice: number) => {
@@ -123,13 +145,14 @@ export default function FiltersSection({
     <Accordion
       type="multiple"
       className="w-full"
-      defaultValue={["categories", "price", "availability"]}>
+      defaultValue={["categories", "price", "availability", "tags"]}>
       <div className="col-span-1 p-4 bg-white flex flex-col items-start gap-8 rounded-md w-full">
         <div className="flex flex-col items-start gap-5 w-full">
           {(filters.category ||
             filters.inStock ||
             filters.maxPrice ||
-            filters.minPrice) && (
+            filters.minPrice ||
+            (filters.tags && filters.tags.length > 0)) && (
             <Button
               className="bg-red/10 text-red hover:bg-red/20"
               size={"sm"}
@@ -263,6 +286,36 @@ export default function FiltersSection({
                 {trans("In Stock")}
               </p>
             </li>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="tags" className="w-full">
+          <AccordionTrigger
+            icon={FaMinus}
+            className="uppercase text-sm md:text-xs xl:text-sm text-primary font-bold w-full ">
+            {trans("Tags")}
+          </AccordionTrigger>
+          <AccordionContent className="flex flex-col items-start gap-3 w-full">
+            {tags.map(tag => (
+              <li
+                key={tag.id}
+                onClick={() => toggleTag(tag.id)}
+                className="flex items-center gap-2 flex-wrap">
+                <Checkbox
+                  id={`tag-${tag.id}`}
+                  className="border-darkGray w-4 h-4 md:w-3 md:h-3 2xl:w-4 2xl:h-4
+                   data-[state=checked]:bg-blue data-[state=checked]:border-blue"
+                  checked={filters.tags?.includes(tag.id) || false}
+                />
+                <span
+                  className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium cursor-pointer"
+                  style={{
+                    backgroundColor: tag.color || "#e5e7eb",
+                    color: "#ffffff",
+                  }}>
+                  {tag.name}
+                </span>
+              </li>
+            ))}
           </AccordionContent>
         </AccordionItem>
       </div>

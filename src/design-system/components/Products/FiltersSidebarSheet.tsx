@@ -27,6 +27,7 @@ interface FiltersSidebarSheetProps {
   updateMinPrice: (minPrice: number) => void;
   updateMaxPrice: (maxPrice: number) => void;
   updateSortOptions: (sort: string) => void;
+  updateTags: (tags: string[]) => void;
   resetFiltersExceptQuery: () => void;
   filters: Filters;
   paginationInfo: paginationInfoType | undefined;
@@ -38,6 +39,7 @@ export default function FiltersSidebarSheet({
   updateMinPrice,
   updateMaxPrice,
   updateSortOptions,
+  updateTags,
   resetFiltersExceptQuery,
   filters,
   paginationInfo,
@@ -73,6 +75,7 @@ export default function FiltersSidebarSheet({
             updateInStock={updateInStock}
             updateMaxPrice={updateMaxPrice}
             updateMinPrice={updateMinPrice}
+            updateTags={updateTags}
           />
           <div className="w-full p-2 flex items-center justify-between gap-4">
             <label htmlFor="sort" className="text-sm text-gray font-medium">

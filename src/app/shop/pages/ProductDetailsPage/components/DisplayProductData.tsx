@@ -28,7 +28,7 @@ export default function DisplayProductData({
 
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const productUrl = `${window.location.origin}${URLS.shop.viewProduct(product.id)}`;
-  const phoneNumber = "919562321211";
+  const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
 
   const handleWhatsAppEnquiry = () => {
     const message = `Hi, I'm interested in this product:\n\n${translateText(product.name)}\n\n${productUrl}`;
@@ -62,14 +62,31 @@ export default function DisplayProductData({
 
   return (
     <div className="flex flex-col items-start gap-5">
-      <div className="flex items-start gap-3 flex-wrap">
-        <h1 className="text-primary text-lg lg:text-[24px] font-medium">
-          {translateText(product.name)}
-        </h1>
-        {product.badge && translateText(product.badge) && (
-          <span className="bg-red text-white text-xs font-semibold px-3 py-1 rounded-full">
-            {translateText(product.badge)}
-          </span>
+      <div className="flex flex-col items-start gap-3">
+        <div className="flex items-start gap-3 flex-wrap">
+          <h1 className="text-primary text-lg lg:text-[24px] font-medium">
+            {translateText(product.name)}
+          </h1>
+          {product.badge && translateText(product.badge) && (
+            <span className="bg-red text-white text-xs font-semibold px-3 py-1 rounded-full">
+              {translateText(product.badge)}
+            </span>
+          )}
+        </div>
+        {product.tags && product.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {product.tags.map(tag => (
+              <span
+                key={tag.id}
+                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                style={{
+                  backgroundColor: tag.color || "#e5e7eb",
+                  color: "#ffffff",
+                }}>
+                {tag.name}
+              </span>
+            ))}
+          </div>
         )}
       </div>
       <Separator />
@@ -149,25 +166,11 @@ export default function DisplayProductData({
         <div className="flex items-center justify-between w-full text-sm text-gray font-medium ">
           <h1>{trans("Availability")}:</h1>
           {product.inStock ? (
-            <div className="flex items-center gap-2">
-              <p className="text-emerald-600">{trans("In Stock")}</p>
-              {product.stock?.available && (
-                <span className="text-xs text-gray">
-                  ({product.stock.available} {trans("available")})
-                </span>
-              )}
-            </div>
+            <p className="text-emerald-600">{trans("In Stock")}</p>
           ) : (
             <p className="text-red">{trans("Out Of Stock")}</p>
           )}
         </div>
-        {product.isLowStock && product.inStock && (
-          <div className="w-full">
-            <p className="text-orange-500 text-xs font-semibold">
-              ⚠ {trans("Low Stock - Order Soon!")}
-            </p>
-          </div>
-        )}
         <div className="flex items-center justify-between w-full text-sm text-gray font-medium">
           <h1>{trans("Category")}:</h1>
           <Link
@@ -186,20 +189,21 @@ export default function DisplayProductData({
       {product.specifications && product.specifications.length > 0 && (
         <>
           <Separator />
-          <div className="flex items-start flex-col gap-2 w-full">
-            <h2 className="text-primary text-base font-semibold mb-2">
+          <div className="flex items-start flex-col gap-3 w-full">
+            <h2 className="text-primary text-lg font-bold">
               {trans("Specifications")}
             </h2>
-            <div className="w-full space-y-2">
+            <ul className="w-full space-y-2 list-disc list-inside text-gray-700">
               {product.specifications.map((spec, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between w-full text-sm text-gray font-medium">
-                  <h1>{spec.label}:</h1>
-                  <p className="text-primary font-semibold">{spec.value}</p>
-                </div>
+                <li key={index} className="text-sm">
+                  <span className="font-semibold text-gray-800">
+                    {spec.label || `Specification ${index + 1}`}
+                  </span>
+                  <span className="mx-2">-</span>
+                  <span className="text-primary font-medium">{spec.value}</span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </>
       )}

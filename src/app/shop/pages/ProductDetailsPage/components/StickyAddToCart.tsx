@@ -11,7 +11,7 @@ interface StickyAddToCartProps {
 }
 
 export default function StickyAddToCart({ product }: StickyAddToCartProps) {
-  const phoneNumber = "919562321211";
+  const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
   const productUrl = `${window.location.origin}${URLS.shop.viewProduct(product.id)}`;
 
   const handleWhatsAppEnquiry = () => {

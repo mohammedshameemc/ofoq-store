@@ -115,11 +115,18 @@ export type Product = {
   sku?: string;
   hasDiscount?: boolean;
   isLowStock?: boolean;
+  tags?: Tag[];
 };
 
 export type Specification = {
   label: string;
   value: string;
+};
+
+export type Tag = {
+  id: string;
+  name: string;
+  color: string;
 };
 
 export type Stock = {
