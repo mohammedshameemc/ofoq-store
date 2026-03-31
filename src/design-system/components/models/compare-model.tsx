@@ -144,16 +144,33 @@ export default function CompareModel() {
                   text-base font-normal text-primary">
                   {trans("Discount")}
                 </TableCell>
-                {compareProducts.map((product: Product) => (
-                  <TableCell
-                    key={product.id}
-                    className="table-cell 
+                {compareProducts.map((product: Product) => {
+                  // Calculate discount if not stored
+                  let discountPercentage = 0;
+                  if (product.discount?.percentage) {
+                    discountPercentage = product.discount.percentage;
+                  } else if (
+                    product.price &&
+                    product.salePrice &&
+                    product.price > product.salePrice
+                  ) {
+                    discountPercentage = Math.round(
+                      ((product.price - product.salePrice) / product.price) *
+                        100,
+                    );
+                  }
+
+                  return (
+                    <TableCell
+                      key={product.id}
+                      className="table-cell 
                     text-center py-8 text-gray">
-                    {product.discount
-                      ? `${product.discount.percentage}% off`
-                      : trans("No Discount")}
-                  </TableCell>
-                ))}
+                      {discountPercentage > 0
+                        ? `${discountPercentage}% off`
+                        : trans("No Discount")}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             </TableBody>
           </Table>

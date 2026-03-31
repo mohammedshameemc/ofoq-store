@@ -3,7 +3,6 @@ import { isLTR } from "shared/utils/helpers";
 import { translateText } from "shared/utils/translate-text";
 
 import { Preview } from "app/shop/pages/ProductDetailsPage/components/Preview";
-import Reviews from "app/shop/pages/ProductDetailsPage/components/reviews/Reviews";
 import {
   Tabs,
   TabsContent,
@@ -29,16 +28,11 @@ export default function ProductInformation({ product }: ProductDetailsProps) {
             className="uppercase text-sm font-semibold pb-2 hover:text-blue hover:border-b-[2.5px] transition hover:border-blue data-[state=active]:bg-white data-[state=active]:border-b-[2.5px] data-[state=active]:border-blue rounded-none data-[state=active]:text-blue data-[state=active]:shadow-none">
             {trans("Description")}
           </TabsTrigger>
-          <TabsTrigger
+          {/* <TabsTrigger
             value="shipping"
             className="uppercase text-sm font-semibold pb-2 hover:text-blue hover:border-b-[2.5px] transition hover:border-blue data-[state=active]:bg-white data-[state=active]:border-b-[2.5px] data-[state=active]:border-blue rounded-none data-[state=active]:text-blue data-[state=active]:shadow-none">
             {trans("Shipping & Return")}
-          </TabsTrigger>
-          <TabsTrigger
-            value="reviews"
-            className="uppercase text-sm font-semibold pb-2 hover:text-blue hover:border-b-[2.5px] transition hover:border-blue data-[state=active]:bg-white data-[state=active]:border-b-[2.5px] border-blue rounded-none data-[state=active]:text-blue data-[state=active]:shadow-none">
-            {trans("Reviews")}
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
         {product.description && product.description[0].value ? (
           <TabsContent
@@ -54,7 +48,7 @@ export default function ProductInformation({ product }: ProductDetailsProps) {
           </TabsContent>
         )}
 
-        <TabsContent value="shipping" className="pb-4">
+        {/* <TabsContent value="shipping" className="pb-4">
           <div className="flex flex-col items-start gap-4">
             <h1 className="text-sm uppercase text-primary font-bold">
               {trans("Shipping")}
@@ -94,10 +88,7 @@ export default function ProductInformation({ product }: ProductDetailsProps) {
               </h1>
             </div>
           </div>
-        </TabsContent>
-        <TabsContent value="reviews" className="pb-4">
-          <Reviews productId={product.id} />
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </div>
   );

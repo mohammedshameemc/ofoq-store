@@ -1,21 +1,20 @@
 import { trans } from "@mongez/localization";
 import { Button } from "design-system/components/ui/button";
 import { Separator } from "design-system/components/ui/separator";
-import { FaRecycle, FaRegHeart } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+// import { FaRecycle } from "react-icons/fa";
+// import { LuShip } from "react-icons/lu";
 import { FiLayers } from "react-icons/fi";
-import { LuShip } from "react-icons/lu";
 import { formatPrice } from "shared/lib/formats";
 
 import { Link } from "@mongez/react-router";
-import { modalAtom } from "design-system/atoms/model-atom";
-import { Checkbox } from "design-system/components/ui/checkbox";
+import ShareModal from "design-system/components/Share/ShareModal";
+import { useState } from "react";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { useProductActions } from "shared/hooks/use-product-actions";
 import { translateText } from "shared/utils/translate-text";
 import { Product } from "shared/utils/types";
 import URLS from "shared/utils/urls";
-import HandleProductQuantity from "./HandleProductQuantity";
-import Rating from "./reviews/Rating";
 
 interface DisplayProductDataProps {
   product: Product;
@@ -24,19 +23,42 @@ interface DisplayProductDataProps {
 export default function DisplayProductData({
   product,
 }: DisplayProductDataProps) {
-  const {
-    addToCompare,
-    addToWishlist,
-    goToCheckout,
-    handleCheckboxChange,
-    isChecked,
-    estimatedDelivery,
-  } = useProductActions(product);
+  const { addToCompare } = useProductActions(product);
+  // const { addToCompare, estimatedDelivery } = useProductActions(product);
 
-  const handleOpenModel = () => {
-    const link = `${window.location.origin}${URLS.shop.viewProduct(product.id)}`;
-    modalAtom.onOpen("share", link);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const productUrl = `${window.location.origin}${URLS.shop.viewProduct(product.id)}`;
+  const phoneNumber = "919562321211";
+
+  const handleWhatsAppEnquiry = () => {
+    const message = `Hi, I'm interested in this product:\n\n${translateText(product.name)}\n\n${productUrl}`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
   };
+
+  // Calculate discount if both price and salePrice exist
+  const calculateDiscount = () => {
+    if (
+      product.price &&
+      product.salePrice &&
+      product.price > product.salePrice
+    ) {
+      const discountAmount = product.price - product.salePrice;
+      const discountPercentage = Math.round(
+        (discountAmount / product.price) * 100,
+      );
+      return {
+        amount: discountAmount,
+        percentage: discountPercentage,
+      };
+    }
+    return null;
+  };
+
+  const discount =
+    product.discount?.amount && product.discount?.percentage
+      ? product.discount
+      : calculateDiscount();
 
   return (
     <div className="flex flex-col items-start gap-5">
@@ -50,7 +72,6 @@ export default function DisplayProductData({
           </span>
         )}
       </div>
-      <Rating rating={product.rating || 0} reviews={product.reviews || 0} />
       <Separator />
       <div className="flex flex-col items-start gap-3 w-full">
         {product.price && product.salePrice ? (
@@ -67,10 +88,10 @@ export default function DisplayProductData({
             {formatPrice(product.price)}
           </span>
         )}
-        {product.discount && (
-          <p className="text-red text-sm">
-            {trans("Discount")}: {formatPrice(product.discount.amount)} (
-            {product.discount.percentage}%)
+        {discount && discount.amount > 0 && discount.percentage > 0 && (
+          <p className="text-red text-sm font-semibold">
+            {trans("Discount")}: {formatPrice(discount.amount)} (
+            {discount.percentage}%)
           </p>
         )}
         {translateText(product.shortDescription) && (
@@ -79,56 +100,41 @@ export default function DisplayProductData({
           </p>
         )}
 
-        <HandleProductQuantity product={product} />
-        <div className="flex items-start flex-col gap-3 w-full">
-          <div
-            className="flex items-center gap-2"
-            onClick={handleCheckboxChange}>
-            <Checkbox checked={isChecked} id="agree" className="h-3 w-3" />
-            <label
-              htmlFor="agree"
-              className="text-darkGray text-sm font-medium">
-              {trans("I agree with")}{" "}
-              <Link
-                className="text-gray underline italic"
-                href={URLS.pages.termsConditions}>
-                {trans("Terms & Conditions")}
-              </Link>
-            </label>
-          </div>
+        <div className="flex items-start flex-col gap-3 w-full mt-2">
           <Button
             variant={"default"}
-            className="w-full rounded-full h-12 text-sm uppercase mb-3"
+            className="w-full rounded-lg h-14 text-base font-bold bg-[#25D366] hover:bg-[#128C7E] transition-all duration-300 shadow-lg hover:shadow-xl gap-3 border-0"
             size={"lg"}
-            disabled={!isChecked}
-            onClick={() => goToCheckout(product.id)}>
-            {trans("Buy It Now")}
+            onClick={handleWhatsAppEnquiry}>
+            <FaWhatsapp className="w-6 h-6" />
+            <span>{trans("Enquire on WhatsApp")}</span>
           </Button>
         </div>
-        <div className="flex items-center justify-between w-full text-primary flex-wrap gap-4">
-          <div className="flex items-center gap-4">
-            <div
-              className="flex items-center gap-1 text-xs font-semibold uppercase cursor-pointer hover:text-blue"
-              onClick={addToWishlist}>
-              <FaRegHeart className="w-4 h-4" />
-              {trans("Add to Wishlist")}
-            </div>
-            <div
-              className="flex items-center gap-1 text-xs font-semibold uppercase cursor-pointer hover:text-blue"
-              onClick={addToCompare}>
-              <FiLayers className="w-4 h-4" />
-              {trans("Add to Compare")}
-            </div>
-          </div>
-          <div
-            className="flex items-center gap-1 cursor-pointer"
-            onClick={handleOpenModel}>
-            <IoShareSocialOutline className="w-4 h-4" />
-            {trans("Share")}
-          </div>
+        <div className="flex items-center gap-3 w-full mt-3">
+          <Button
+            variant="outline"
+            className="flex-1 h-12 rounded-lg border-2 border-gray-300 hover:border-blue hover:bg-blue/5 transition-all duration-300 gap-2 font-semibold"
+            onClick={addToCompare}>
+            <FiLayers className="w-5 h-5" />
+            <span className="text-sm">{trans("Add to Compare")}</span>
+          </Button>
+          <Button
+            variant="outline"
+            className="flex-1 h-12 rounded-lg border-2 border-gray-300 hover:border-blue hover:bg-blue/5 transition-all duration-300 gap-2 font-semibold"
+            onClick={() => setIsShareModalOpen(true)}>
+            <IoShareSocialOutline className="w-5 h-5" />
+            <span className="text-sm">{trans("Share")}</span>
+          </Button>
         </div>
       </div>
-      <Separator />
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        productName={translateText(product.name)}
+        productUrl={productUrl}
+        phoneNumber={phoneNumber}
+      />
+      {/* <Separator />
       <div className="flex flex-col items-start gap-3">
         <div className="flex items-center gap-2 text-gray">
           <LuShip className="w-5 h-5" />
@@ -138,7 +144,7 @@ export default function DisplayProductData({
           <FaRecycle className="w-5 h-5" />
           <p className="text-sm font-semibold text-gray">{trans("tax_rule")}</p>
         </div>
-      </div>
+      </div> */}
       <Separator />
       <div className="flex items-start flex-col gap-2 w-full md:w-[280px]">
         <div className="flex items-center justify-between w-full text-sm text-gray font-medium ">
@@ -171,12 +177,6 @@ export default function DisplayProductData({
             {translateText(product.category.name)}
           </Link>
         </div>
-        {product.brand && (
-          <div className="flex items-center justify-between w-full text-sm text-gray font-medium">
-            <h1>{trans("Brand")}:</h1>
-            <p className="text-gray">{translateText(product.brand.name)}</p>
-          </div>
-        )}
         {product.type && (
           <div className="flex items-center justify-between w-full text-sm text-gray font-medium">
             <h1>{trans("Type")}:</h1>

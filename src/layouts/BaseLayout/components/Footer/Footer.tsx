@@ -1,5 +1,4 @@
 import { trans } from "@mongez/localization";
-import SubscribeToNewsletter from "layouts/BaseLayout/components/Footer/SubscribeToNewsletter";
 import { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
@@ -57,16 +56,16 @@ export default function Footer() {
               <p>+222-1800-262</p>
             </a>
             <p className="font-medium text-sm leading-6 text-gray text-start">
-              268 St, South New York/NY 98944, United States
+              Ofoq Trading, Ain Khalid, Doha, Qatar
             </p>
             <p className="font-medium text-sm leading-6 text-gray">
-              Customersupport@example.com
+              admin@ofoqbookstore.com
             </p>
-            <a
+            {/* <a
               href="mailto:Aloshopify@ofoqbookstore.com"
               className="font-medium text-sm leading-6 text-gray">
               Aloshopify@ofoqbookstore.com
-            </a>
+            </a> */}
           </div>
         </div>
 
@@ -118,7 +117,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="my-4 mx-auto bg-lightGray px-5 py-3 rounded-md mb-3  md:bg-transparent w-full md:w-[48%] lg:w-[35%]">
+        {/* <div className="my-4 mx-auto bg-lightGray px-5 py-3 rounded-md mb-3  md:bg-transparent w-full md:w-[48%] lg:w-[35%]">
           <h3
             className="uppercase font-bold text-sm text-primary
                flex justify-between items-center"
@@ -144,7 +143,7 @@ export default function Footer() {
               {trans("subscribeForOfoq")}
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="bg-borderLight h-px mt-8 mb-8"></div>

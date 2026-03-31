@@ -1,9 +1,11 @@
 import Helmet from "@mongez/react-helmet";
 
 import Breadcrumbs from "design-system/components/Breadcrumbs";
+import ProductMetaTags from "design-system/components/Share/ProductMetaTags";
 import { Skeleton } from "design-system/components/ui/skeleton";
 import { useProductsDetails } from "shared/hooks/use-product-details";
 import { translateText } from "shared/utils/translate-text";
+import URLS from "shared/utils/urls";
 import ProductDetails from "./components/ProductDetails";
 import ProductInformation from "./components/ProductInformation";
 import RelatedProducts from "./components/RelatedProducts";
@@ -45,8 +47,11 @@ export default function ProductsDetailsPage({
     );
   }
 
+  const productUrl = `${window.location.origin}${URLS.shop.viewProduct(Number(productId))}`;
+
   return (
     <div className="flex flex-col items-center justify-center gap-5 bg-lightGray mb-10 px-4">
+      <ProductMetaTags product={data} productUrl={productUrl} />
       <Helmet title="Products Page" />
       <div className="w-full max-w-[1400px] mx-auto pt-5 ">
         <Breadcrumbs title={translateText(data?.name || "") || ""} />

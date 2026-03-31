@@ -3053,5 +3053,49 @@
   "calculateRates": {
     "en": "calculate shipping rates",
     "ar": " حساب أسعار الشحن "
+  },
+  "Enquire on WhatsApp": {
+    "en": "Enquire on WhatsApp",
+    "ar": "استفسر عبر واتساب"
+  },
+  "Share Product": {
+    "en": "Share Product",
+    "ar": "مشاركة المنتج"
+  },
+  "Share this product with others": {
+    "en": "Share this product with others",
+    "ar": "شارك هذا المنتج مع الآخرين"
+  },
+  "Share on WhatsApp": {
+    "en": "Share on WhatsApp",
+    "ar": "مشاركة عبر واتساب"
+  },
+  "Share on Facebook": {
+    "en": "Share on Facebook",
+    "ar": "مشاركة عبر فيسبوك"
+  },
+  "Share on Instagram": {
+    "en": "Share on Instagram",
+    "ar": "مشاركة عبر انستجرام"
+  },
+  "Or copy link": {
+    "en": "Or copy link",
+    "ar": "أو انسخ الرابط"
+  },
+  "Link copied! Open Instagram app and paste the link in your story or post.": {
+    "en": "Link copied! Open Instagram app and paste the link in your story or post.",
+    "ar": "تم نسخ الرابط! افتح تطبيق انستجرام والصق الرابط في قصتك أو منشورك."
+  },
+  "Link copied to clipboard!": {
+    "en": "Link copied to clipboard!",
+    "ar": "تم نسخ الرابط!"
+  },
+  "View Product": {
+    "en": "View Product",
+    "ar": "عرض المنتج"
+  },
+  "Estimated delivery: 3-5 business days": {
+    "en": "Estimated delivery: 3-5 business days",
+    "ar": "التسليم المتوقع: 3-5 أيام عمل"
   }
 }

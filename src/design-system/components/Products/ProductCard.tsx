@@ -1,7 +1,6 @@
 import { trans } from "@mongez/localization";
 import { Link } from "@mongez/react-router";
 import { CheckIcon, Cross1Icon } from "@radix-ui/react-icons";
-import { FaRegEye } from "react-icons/fa";
 
 import { formatPrice } from "shared/lib/formats";
 import { cn } from "shared/lib/utils";
@@ -23,9 +22,10 @@ export default function ProductCard({ product, grid }: TProduct) {
   }
 
   return (
-    <div
+    <Link
+      to={URLS.shop.viewProduct(product.id)}
       className={cn(
-        "group bg-white relative p-2 md:p-4 rounded max-w-[190px] md:min-w-[230px] max-h-[400px] md:h-[415px] lg:h-[400px] cursor-pointer overflow-hidden",
+        "group bg-white relative p-2 md:p-4 rounded max-w-[190px] md:min-w-[230px] max-h-[400px] md:h-[415px] lg:h-[400px] cursor-pointer overflow-hidden block",
         grid === 4 && "w-[230px] md:min-w-[230px] 2xl:min-w-[269px]",
         grid === 3 && "w-[230px] md:min-w-[230px] 2xl:min-w-[359px]",
       )}>
@@ -55,11 +55,9 @@ export default function ProductCard({ product, grid }: TProduct) {
 
       {/* Content Container - slides up on hover */}
       <div className="bg-white z-20 relative translate-y-[50px] group-hover:-translate-y-6 lg:translate-y-6 lg:group-hover:-translate-y-16 transition-all duration-500 py-1 text-left">
-        <Link
-          to={URLS.shop.viewProduct(product.id)}
-          className="line-clamp-2 h-10 mt-2 leading-5 font-semibold text-sm hover:text-blue transition-colors duration-200">
+        <h3 className="line-clamp-2 h-10 mt-2 leading-5 font-semibold text-sm hover:text-blue transition-colors duration-200">
           {translateText(product.name)}
-        </Link>
+        </h3>
 
         {product.price && product.salePrice ? (
           <div className="flex gap-2 items-end">
@@ -91,12 +89,12 @@ export default function ProductCard({ product, grid }: TProduct) {
         </div>
 
         {/* View Product Button */}
-        <Link href={URLS.shop.viewProduct(product.id)} className="block w-full mt-4">
+        <div className="block w-full mt-4">
           <button className="w-full h-8 md:h-10 rounded-full bg-blue text-white text-sm font-semibold hover:bg-blue/90 transition-colors duration-200">
             {trans("View Product")}
           </button>
-        </Link>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
