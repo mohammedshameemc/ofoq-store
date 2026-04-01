@@ -156,34 +156,6 @@ export default function Footer() {
             </a>
           </div>
         </div>
-
-        {/* <div className="my-4 mx-auto bg-lightGray px-5 py-3 rounded-md mb-3  md:bg-transparent w-full md:w-[48%] lg:w-[35%]">
-          <h3
-            className="uppercase font-bold text-sm text-primary
-               flex justify-between items-center"
-            onClick={() => toggleVisibility("news")}>
-            <span> {trans("newsletterSignup")} </span>
-            <span className="flex items-center md:hidden text-lg text-center">
-              {visibleSections.news ? <IoIosArrowUp /> : <IoIosArrowDown />}
-            </span>
-          </h3>
-          <div
-            className={`transition-all duration-500 ease-in-out flex md:max-h-screen opacity-100 ${
-              visibleSections.news
-                ? "max-h-screen opacity-100"
-                : "max-h-0 opacity-0 overflow-hidden"
-            } flex-col items-start mt-3`}>
-            <p className="text-gray text-sm leading-8 md:max-w-80 text-start">
-              {trans("join")}
-            </p>
-
-            <SubscribeToNewsletter />
-
-            <p className="text-gray text-sm leading-8 md:max-w-80 text-start">
-              {trans("subscribeForOfoq")}
-            </p>
-          </div>
-        </div> */}
       </div>
 
       <div className="bg-borderLight h-px mt-8 mb-8"></div>
